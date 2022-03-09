@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
@@ -70,8 +70,23 @@ class Login extends React.Component {
                 disabled={ this.validadeEmailAndUserName() }
               >
                 Play
-
               </button>
+            </div>
+            <div className="btnSettings">
+              <Link to="settings">
+                <button
+                  data-testid="btn-settings"
+                  className="btn-settings"
+                  type="submit"
+                  // onClick={
+                  // //   saveDispatchEmail(email);
+                  //   history.push('/settings');
+                  //  }
+                  disabled={ this.validadeEmailAndUserName() }
+                >
+                  Configurações
+                </button>
+              </Link>
             </div>
           </form>
         </div>
@@ -79,4 +94,5 @@ class Login extends React.Component {
     );
   }
 }
+
 export default Login;
