@@ -72,22 +72,18 @@ class Login extends React.Component {
                 Play
               </button>
             </div>
-            <div className="btnSettings">
-              <Link to="settings">
-                <button
-                  data-testid="btn-settings"
-                  className="btn-settings"
-                  type="submit"
-                  // onClick={
-                  // //   saveDispatchEmail(email);
-                  //   history.push('/settings');
-                  //  }
-                  disabled={ this.validadeEmailAndUserName() }
-                >
-                  Configurações
-                </button>
-              </Link>
-            </div>
+
+            <Link to="/settings">
+              <button
+                data-testid="btn-settings"
+                className="btn-settings"
+                type="submit"
+                disabled={ this.validadeEmailAndUserName() }
+              >
+                Configurações
+              </button>
+            </Link>
+
           </form>
         </div>
       </main>
