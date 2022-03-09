@@ -1,18 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { saveLocalStorage } from '../services/localStorage';
+import logo from '../trivia.png';
+import { login } from '../redux/actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
+    state = {
       email: '',
       UserName: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  // Validação email: https://www.webdevdrops.com/react-forms-validacao-react-hook-form/
 
   validadeEmailAndUserName = () => {
     const { email, UserName } = this.state;
@@ -21,74 +19,89 @@ class Login extends React.Component {
     } return true;
   }
 
-  handleChange({ target }) {
+  handlePlayClick = async () => {
+    const { dispatch } = this.props;
+    try {
+      const url = 'https://opentdb.com/api_token.php?command=request';
+      const response = await fetch(url);
+      const token = await response.json();
+      console.log(token.token);
+      saveLocalStorage('token', token.token);
+      return dispatch(login(token.token));
+    } catch (error) {
+      return error;
+    }
+  }
+
+  handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
   render() {
+    const { history } = this.props;
     const { UserName, email } = this.state;
     return (
-      <main className="">
-        <div className="">
-          <h1>Login</h1>
-          <form>
-            <div className="">
-              <input
-                className="email-input"
-                type="email"
-                placeholder="Digite seu email"
-                data-testid="input-gravatar-email"
-                required
-                onChange={ this.handleChange }
-                value={ email }
-                name="email"
-              />
-            </div>
-            <div className="">
-              <input
-                id="UserName"
-                className="name-input"
-                type="text"
-                placeholder="Digite seu nome"
-                data-testid="input-player-name"
-                required
-                onChange={ this.handleChange }
-                value={ UserName }
-                name="UserName"
-              />
-            </div>
-            <div className="btnLogin">
-              <button
-                data-testid="btn-play"
-                className="btn-play"
-                type="submit"
-                // onClick={ () => {
-                //   saveDispatchEmail(email);
-                //   // history.push('/carteira');
-                // } }
-                disabled={ this.validadeEmailAndUserName() }
-              >
-                Play
-              </button>
-            </div>
-
-            <Link to="/settings">
-              <button
-                data-testid="btn-settings"
-                className="btn-settings"
-                type="submit"
-                disabled={ this.validadeEmailAndUserName() }
-              >
-                Configurações
-              </button>
-            </Link>
-
-          </form>
-        </div>
-      </main>
+      <div className="App-header">
+        <img src={ logo } className="App-logo" alt="logo" />
+        <h1>Login</h1>
+        <form>
+          <div className="">
+            <input
+              className="email-input"
+              type="email"
+              placeholder="Digite seu email"
+              data-testid="input-gravatar-email"
+              required
+              onChange={ this.handleChange }
+              value={ email }
+              name="email"
+            />
+          </div>
+          <div className="">
+            <input
+              id="UserName"
+              className="name-input"
+              type="text"
+              placeholder="Digite seu nome"
+              data-testid="input-player-name"
+              required
+              onChange={ this.handleChange }
+              value={ UserName }
+              name="UserName"
+            />
+          </div>
+          <div className="btnLogin">
+            <button
+              data-testid="btn-play"
+              className="btn-play"
+              type="button"
+              onClick={ () => {
+                this.handlePlayClick();
+                history.push('/gamePage');
+              } }
+              disabled={ this.validadeEmailAndUserName() }
+            >
+              Play
+            </button>
+          </div>
+          <Link to="/settings">
+            <button
+              data-testid="btn-settings"
+              className="btn-settings"
+              type="button"
+            >
+              Configurações
+            </button>
+          </Link>
+        </form>
+      </div>
     );
   }
 }
+Login.propTypes = {
+  history: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
-export default Login;
+export default connect()(Login);
