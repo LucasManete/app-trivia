@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
-import { saveLocalStorage } from '../services/localStorage';
+// import { saveLocalStorage } from '../services/localStorage';
 import logo from '../trivia.png';
-// import { fetchQuestionsApi } from '../redux/actions';
+import { fetchQuestionsApi } from '../redux/actions';
 
 class Login extends React.Component {
     state = {
       email: '',
-      UserName: '',
+      userName: '',
     };
 
   validadeEmailAndUserName = () => {
-    const { email, UserName } = this.state;
-    if (email.length > 0 && UserName.length > 0) {
+    const { email, userName } = this.state;
+    if (email.length > 0 && userName.length > 0) {
       return false;
     } return true;
   }
@@ -23,22 +23,9 @@ class Login extends React.Component {
   handlePlayClick = async (fetchApiQuestions) => {
     const { email, userName } = this.state;
     const hasEmail = md5(email).toString();
-    const token = await this.fetchTokenApi();
     const gravatar = `https://www.gravatar.com/avatar/${hasEmail}`;
-    return fetchApiQuestions({ token, gravatar, userName });
+    return fetchApiQuestions({ gravatar, userName });
   }
-
-   fetchTokenApi = async () => {
-     try {
-       const url = 'https://opentdb.com/api_token.php?command=request';
-       const response = await fetch(url);
-       const token = await response.json();
-       saveLocalStorage('token', token.token);
-       return token.token;
-     } catch (error) {
-       return error;
-     }
-   }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -47,7 +34,7 @@ class Login extends React.Component {
 
   render() {
     const { history, fetchApiQuestions } = this.props;
-    const { UserName, email } = this.state;
+    const { userName, email } = this.state;
     return (
       <div className="App-header">
         <img src={ logo } className="App-logo" alt="logo" />
@@ -74,8 +61,8 @@ class Login extends React.Component {
               data-testid="input-player-name"
               required
               onChange={ this.handleChange }
-              value={ UserName }
-              name="UserName"
+              value={ userName }
+              name="userName"
             />
           </div>
           <div className="btnLogin">

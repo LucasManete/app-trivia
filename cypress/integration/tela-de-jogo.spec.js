@@ -111,6 +111,7 @@ describe('5 - [TELA DE JOGO] Crie a página de jogo que deve conter as informaç
       };
     }).then(() => {
       const removeRepeatedList = [...new Set(answersList)];
+      console.log(removeRepeatedList);
       expect(removeRepeatedList.length).to.be.greaterThan(1);
     });
   });

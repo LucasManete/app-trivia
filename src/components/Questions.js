@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Questions extends React.Component {
   state = {
-    next: false,
+    // next: false,
     questions: [],
     loading: true,
     index: 0,
@@ -11,25 +12,51 @@ class Questions extends React.Component {
 
   componentDidMount() {
     const { questions } = this.props;
-    // const { results } = questions;
-    // results.forEach((question, index) => {
-    //   this.setState({ [index]: question });
-    // });
     this.setState({ questions, loading: false });
   }
 
   getBollAnswers(quest) {
-
+    const answers = [...quest.incorrect_answers, quest.correct_answer].sort();
+    const incorrects = quest.incorrect_answers;
+    return answers.map((answer) => {
+      if (answer === incorrects[0]) {
+        return (
+          <button type="button" data-testid="wrong-answer-0">
+            {answer}
+          </button>);
+      }
+      return (
+        <button type="button" key="0" data-testid="correct-answer">
+          {answer}
+        </button>);
+    });
   }
 
   getMultipleAnswers(quest) {
-    console.log(quest);
-    const answers = [...quest.incorrect_answers, quest.correct_answer].sort();
-    console.log(answers);
-    // const answersSorted = answers.sort();
-    // console.log(answersSorted);
-    // console.log(answers);
-    return (<div>lalalala</div>);
+    // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
+    const maxRandom = 0.5;
+    const answers = [...quest.incorrect_answers, quest.correct_answer]
+      .sort(() => Math.random() - maxRandom);
+    const incorrects = quest.incorrect_answers;
+    return answers.map((answer) => {
+      if (answer === quest.correct_answer) {
+        return (
+          <button key="4" type="button" data-testid="correct-answer">
+            {answer}
+          </button>);
+      }
+      const index = incorrects.indexOf(answer, [0]);
+
+      return (
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `wrong-answer-${index}` }
+        >
+          {answer}
+        </button>
+      );
+    });
   }
 
   questionToRender(index) {
@@ -42,8 +69,10 @@ class Questions extends React.Component {
       <>
         <span data-testid="question-category">{quest.category}</span>
         <span data-testid="question-text">{quest.question}</span>
-        <div className="answers-div">
-          {type === 'multiple' ? this.getMultipleAnswers(quest) : this.getBollAnswers(quest)}
+        <div className="answers-div" data-testid="answer-options">
+          {type === 'multiple'
+            ? this.getMultipleAnswers(quest)
+            : this.getBollAnswers(quest)}
         </div>
 
       </>
@@ -59,6 +88,9 @@ class Questions extends React.Component {
     );
   }
 }
+Questions.propTypes = {
+  questions: PropTypes.oneOfType([PropTypes.object]).isRequired,
+};
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
 });
