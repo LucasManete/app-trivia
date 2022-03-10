@@ -1,5 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor() {
@@ -11,8 +12,6 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
-  // Validação email: https://www.webdevdrops.com/react-forms-validacao-react-hook-form/
 
   validadeEmailAndUserName = () => {
     const { email, UserName } = this.state;
@@ -79,4 +78,5 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+
+export default connect()(Login);
