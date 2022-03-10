@@ -1,4 +1,45 @@
+import { saveLocalStorage } from '../../services/localStorage';
+
 export const USER_TOKEN = 'USER_TOKEN';
 export const login = (state) => ({ type: USER_TOKEN, state });
-export const USER_INFORMATIONS = 'USER_INFORMATIONS';
-export const userInformations = (state) => ({ type: USER_INFORMATIONS, state });
+export const getPlayer = (state) => ({ type: 'GET_PLAYER', state });
+
+const fetchTokenApi = async () => {
+  try {
+    const url = 'https://opentdb.com/api_token.php?command=request';
+    const response = await fetch(url);
+    const token = await response.json();
+    saveLocalStorage('token', token);
+    return token.token;
+  } catch (error) {
+    return error;
+  }
+};
+
+export function fetchQuestionsApi(state) {
+  return async (dispatch) => {
+    const token = await fetchTokenApi();
+    dispatch(login(token));
+    try {
+      const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+      const data = await response.json();
+      const wrongCode = 3;
+      if (data.response_code === wrongCode) {
+        throw new Error();
+      }
+      return dispatch(getPlayer({ questions: data,
+        name: state.userName,
+        gravatar: state.gravatar,
+      }));
+    } catch (error) {
+      console.log('lalala');
+      const newToken = await fetchTokenApi();
+      const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${newToken}`);
+      const questions = await requestQuestions.json();
+      return dispatch(getPlayer({ questions,
+        name: state.userName,
+        gravatar: state.gravatar,
+      }));
+    }
+  };
+}
