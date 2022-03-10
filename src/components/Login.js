@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { saveLocalStorage } from '../services/localStorage';
 import logo from '../trivia.png';
-import { login } from '../redux/actions';
+import { login, userInformations } from '../redux/actions';
 
 class Login extends React.Component {
     state = {
@@ -21,13 +21,17 @@ class Login extends React.Component {
 
   handlePlayClick = async () => {
     const { dispatch } = this.props;
+    const { email, UserName } = this.state;
     try {
       const url = 'https://opentdb.com/api_token.php?command=request';
       const response = await fetch(url);
       const token = await response.json();
-      console.log(token.token);
       saveLocalStorage('token', token.token);
-      return dispatch(login(token.token));
+      dispatch(login(token.token));
+      dispatch(userInformations({
+        name: UserName,
+        gravatarEmail: email,
+      }));
     } catch (error) {
       return error;
     }

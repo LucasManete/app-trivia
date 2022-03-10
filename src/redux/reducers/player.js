@@ -1,15 +1,16 @@
+import { USER_INFORMATIONS } from '../actions';
+
 export const INITIAL_STATE = {
   name: '',
   assertions: '',
-  score: '',
+  score: 0,
   gravatarEmail: '',
 };
 
 function playerReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'USER_LOGIN':
-    return { ...state,
-      email: action.state };
+  case USER_INFORMATIONS:
+    return action.state;
   default:
     return state;
   }
