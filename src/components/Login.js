@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import { saveLocalStorage } from '../services/localStorage';
 import logo from '../trivia.png';
-import { fetchQuestionsApi } from '../redux/actions';
+// import { fetchQuestionsApi } from '../redux/actions';
 
 class Login extends React.Component {
     state = {
