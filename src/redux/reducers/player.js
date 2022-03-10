@@ -3,13 +3,16 @@ export const INITIAL_STATE = {
   assertions: '',
   score: '',
   gravatarEmail: '',
+  questions: '',
 };
 
 function playerReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'USER_LOGIN':
+  case 'GET_PLAYER':
     return { ...state,
-      email: action.state };
+      name: action.state.name,
+      gravatarEmail: action.state.gravatar,
+      questions: action.state.questions };
   default:
     return state;
   }

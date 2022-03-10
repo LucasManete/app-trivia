@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Route, Switch } from 'react-router-dom';
+import Questions from '../components/Questions';
 
 class GamePage extends React.Component {
   render() {
@@ -14,6 +14,9 @@ class GamePage extends React.Component {
           <h3 data-testid="header-player-name">Nome da Pessoa</h3>
           <p>Placar Zerado</p>
         </header>
+        <section className="Questions-section">
+          <Questions />
+        </section>
       </div>
     );
   }

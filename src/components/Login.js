@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 import { saveLocalStorage } from '../services/localStorage';
 import logo from '../trivia.png';
-import { login } from '../redux/actions';
+import { fetchQuestionsApi } from '../redux/actions';
 
 class Login extends React.Component {
     state = {
@@ -19,19 +20,25 @@ class Login extends React.Component {
     } return true;
   }
 
-  handlePlayClick = async () => {
-    const { dispatch } = this.props;
-    try {
-      const url = 'https://opentdb.com/api_token.php?command=request';
-      const response = await fetch(url);
-      const token = await response.json();
-      console.log(token.token);
-      saveLocalStorage('token', token.token);
-      return dispatch(login(token.token));
-    } catch (error) {
-      return error;
-    }
+  handlePlayClick = async (fetchApiQuestions) => {
+    const { email, userName } = this.state;
+    const hasEmail = md5(email).toString();
+    const token = await this.fetchTokenApi();
+    const gravatar = `https://www.gravatar.com/avatar/${hasEmail}`;
+    return fetchApiQuestions({ token, gravatar, userName });
   }
+
+   fetchTokenApi = async () => {
+     try {
+       const url = 'https://opentdb.com/api_token.php?command=request';
+       const response = await fetch(url);
+       const token = await response.json();
+       saveLocalStorage('token', token.token);
+       return token.token;
+     } catch (error) {
+       return error;
+     }
+   }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -39,7 +46,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, fetchApiQuestions } = this.props;
     const { UserName, email } = this.state;
     return (
       <div className="App-header">
@@ -76,8 +83,8 @@ class Login extends React.Component {
               data-testid="btn-play"
               className="btn-play"
               type="button"
-              onClick={ () => {
-                this.handlePlayClick();
+              onClick={ async () => {
+                await this.handlePlayClick(fetchApiQuestions);
                 history.push('/gamePage');
               } }
               disabled={ this.validadeEmailAndUserName() }
@@ -99,9 +106,12 @@ class Login extends React.Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiQuestions: (state) => dispatch(fetchQuestionsApi(state)) });
+
 Login.propTypes = {
   history: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  fetchApiQuestions: PropTypes.func.isRequired,
 };
 
-export default connect()(Login);
+export default connect(null, mapDispatchToProps)(Login);
