@@ -5,7 +5,7 @@ import Questions from '../components/Questions';
 
 class GamePage extends React.Component {
   render() {
-    const { name, urlGravatar } = this.props;
+    const { name, urlGravatar, history } = this.props;
     return (
       <div className="game-pag">
         <header className="game-header">
@@ -18,7 +18,8 @@ class GamePage extends React.Component {
           <p data-testid="header-score">0</p>
         </header>
         <section className="Questions-section">
-          <Questions />
+          <Questions history={ history } />
+          <div id="timer" />
         </section>
       </div>
     );
@@ -33,5 +34,6 @@ const mapStateToProps = (state) => ({
 GamePage.propTypes = {
   name: PropTypes.string.isRequired,
   urlGravatar: PropTypes.string.isRequired,
+  history: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps)(GamePage);

@@ -5,12 +5,13 @@ import './style.css';
 
 class Questions extends React.Component {
   state = {
-    // next: false,
+    next: false,
     questions: [],
     loading: true,
     index: 0,
     colorRed: '',
     colorGreen: '',
+    disabled: false,
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class Questions extends React.Component {
   }
 
   getBollAnswers(quest) {
-    const { colorGreen, colorRed } = this.state;
+    const { colorGreen, colorRed, disabled } = this.state;
     const answers = [...quest.incorrect_answers, quest.correct_answer].sort();
     const incorrects = quest.incorrect_answers;
     return answers.map((answer) => {
@@ -30,6 +31,7 @@ class Questions extends React.Component {
             data-testid="wrong-answer-0"
             onClick={ this.handleColor }
             className={ colorGreen }
+            disabled={ disabled }
           >
             {answer}
           </button>);
@@ -41,6 +43,7 @@ class Questions extends React.Component {
           data-testid="correct-answer"
           onClick={ this.handleColor }
           className={ colorRed }
+          disabled={ disabled }
         >
           {answer}
         </button>);
@@ -48,7 +51,7 @@ class Questions extends React.Component {
   }
 
   getMultipleAnswers(quest) {
-    const { colorGreen, colorRed } = this.state;
+    const { colorGreen, colorRed, disabled } = this.state;
     // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
     const maxRandom = 0.5;
     const answers = [...quest.incorrect_answers, quest.correct_answer]
@@ -63,6 +66,7 @@ class Questions extends React.Component {
             data-testid="correct-answer"
             onClick={ this.handleColor }
             className={ colorGreen }
+            disabled={ disabled }
           >
             {answer}
           </button>);
@@ -76,6 +80,7 @@ class Questions extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ colorRed }
           onClick={ this.handleColor }
+          disabled={ disabled }
         >
           {answer}
         </button>
@@ -87,11 +92,13 @@ handleColor = () => {
   this.setState({
     colorGreen: 'colorButtonCorrect',
     colorRed: 'colorButtonIncorrect',
+    disabled: true,
+    next: true,
   });
 }
 
-questionToRender(index) {
-  const { questions } = this.state;
+questionToRender() {
+  const { questions, index } = this.state;
   const { results } = questions;
   const quest = results[index];
   const { type } = quest;
@@ -110,17 +117,48 @@ questionToRender(index) {
   );
 }
 
+handleNextClick(index) {
+  const { history } = this.props;
+  const maxIndex = 4;
+  if (index < maxIndex) {
+    this.setState({
+      index: index + 1,
+      colorGreen: '',
+      colorRed: '',
+      disabled: false,
+      next: false,
+    });
+  } else {
+    // this.setState({ loading: true });
+    history.push('/feedbak');
+  }
+}
+
+renderNextBtn() {
+  const { index } = this.state;
+  return (
+    <button
+      type="button"
+      data-testid="btn-next"
+      onClick={ () => this.handleNextClick(index) }
+    >
+      Next
+    </button>);
+}
+
 render() {
-  const { loading, index } = this.state;
+  const { loading, index, next } = this.state;
   return (
     <div>
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
+      {next && this.renderNextBtn()}
     </div>
   );
 }
 }
 Questions.propTypes = {
   questions: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  history: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
