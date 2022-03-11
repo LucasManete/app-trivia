@@ -34,6 +34,6 @@ const mapStateToProps = (state) => ({
 GamePage.propTypes = {
   name: PropTypes.string.isRequired,
   urlGravatar: PropTypes.string.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 export default connect(mapStateToProps)(GamePage);
