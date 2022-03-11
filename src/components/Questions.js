@@ -12,6 +12,7 @@ class Questions extends React.Component {
     index: 0,
     colorRed: '',
     colorGreen: '',
+    renderTimer: true,
   }
 
   componentDidMount() {
@@ -143,8 +144,15 @@ questionToRender() {
   );
 }
 
+restartTimer = (value) => {
+  this.setState({
+    renderTimer: value,
+  });
+};
+
 handleNextClick(index) {
   const { history } = this.props;
+  const { renderTimer } = this.state;
   const maxIndex = 4;
   if (index < maxIndex) {
     this.setState({
@@ -152,8 +160,10 @@ handleNextClick(index) {
       colorGreen: '',
       colorRed: '',
     });
+    this.restartTimer(false);
     return this.callDisabledDispatch(false);
   }
+
   // this.setState({ loading: true });
   history.push('/feedbak');
 }
@@ -171,11 +181,14 @@ renderNextBtn() {
 }
 
 render() {
-  const { loading, index } = this.state;
+  const { loading, index, renderTimer } = this.state;
   const { next } = this.props;
   return (
     <div>
-      <Interval />
+      <Interval
+        render={ renderTimer }
+        renderFunction={ this.restartTimer }
+      />
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>

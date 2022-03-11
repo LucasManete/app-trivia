@@ -17,7 +17,10 @@ class Interval extends React.Component {
 
   componentDidUpdate() {
     const { time } = this.state;
-    const { setDisabled, setNext, setTimer } = this.props;
+    const { setDisabled, setNext, setTimer, render, renderFunction } = this.props;
+    if (render === false) {
+      renderFunction(true);
+    }
     setTimer(time);
     if (time === 0) {
       setDisabled(true);
@@ -42,7 +45,7 @@ class Interval extends React.Component {
     return setDisabled(true);
   }
 
-  render() {
+  ToRender() {
     const { time, interval } = this.state;
     const { stop } = this.props;
     return (
@@ -53,6 +56,16 @@ class Interval extends React.Component {
           {time === 0 ? clearInterval(interval) : null}
         </span>
       </>
+    );
+  }
+
+  render() {
+    const { render } = this.props;
+    console.log(render);
+    return (
+      <div>
+        {this.ToRender()}
+      </div>
     );
   }
 }
@@ -71,6 +84,7 @@ Interval.propTypes = {
   setDisabled: func.isRequired,
   setNext: func.isRequired,
   setTimer: func.isRequired,
+  render: bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Interval);
