@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { answerDisabled, nextBtn } from '../redux/actions';
+import PropTypes from 'prop-types';
+import { answerDisabled, nextBtn, setTime } from '../redux/actions';
 
 class Interval extends React.Component {
   state = {
@@ -16,7 +17,8 @@ class Interval extends React.Component {
 
   componentDidUpdate() {
     const { time } = this.state;
-    const { setDisabled, setNext } = this.props;
+    const { setDisabled, setNext, setTimer } = this.props;
+    setTimer(time);
     if (time === 0) {
       setDisabled(true);
       setNext(true);
@@ -56,9 +58,19 @@ class Interval extends React.Component {
 }
 const mapStateToProps = (state) => ({
   stop: state.timer.stop,
+  // time: state.timer.time,
 });
 const mapDispatchToProps = (dispatch) => ({
   setDisabled: (state) => dispatch(answerDisabled(state)),
-  setNext: (state) => dispatch(nextBtn(state)) });
+  setNext: (state) => dispatch(nextBtn(state)),
+  setTimer: (state) => dispatch(setTime(state)),
+});
+const { bool, func } = PropTypes;
+Interval.propTypes = {
+  stop: bool.isRequired,
+  setDisabled: func.isRequired,
+  setNext: func.isRequired,
+  setTimer: func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Interval);

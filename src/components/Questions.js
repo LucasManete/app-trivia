@@ -7,13 +7,11 @@ import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
 
 class Questions extends React.Component {
   state = {
-    next: false,
     questions: [],
     loading: true,
     index: 0,
     colorRed: '',
     colorGreen: '',
-    disabled: false,
   }
 
   componentDidMount() {
@@ -33,9 +31,7 @@ class Questions extends React.Component {
             type="button"
             data-testid="wrong-answer-0"
             onClick={ () => {
-              this.handleColor();
-              this.callDisabledDispatch(true);
-              this.callNextBtnDispatch(true);
+              this.handleAnswerClick();
             } }
             className={ colorGreen }
             disabled={ disabled }
@@ -49,9 +45,7 @@ class Questions extends React.Component {
           key="0"
           data-testid="correct-answer"
           onClick={ () => {
-            this.handleColor();
-            this.callDisabledDispatch(true);
-            this.callNextBtnDispatch(true);
+            this.handleAnswerClick();
           } }
           className={ colorRed }
           disabled={ disabled }
@@ -77,9 +71,7 @@ class Questions extends React.Component {
             type="button"
             data-testid="correct-answer"
             onClick={ () => {
-              this.handleColor();
-              this.callDisabledDispatch(true);
-              this.callNextBtnDispatch(true);
+              this.handleAnswerClick();
             } }
             className={ colorGreen }
             disabled={ disabled }
@@ -96,9 +88,7 @@ class Questions extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ colorRed }
           onClick={ () => {
-            this.handleColor();
-            this.callDisabledDispatch(true);
-            this.callNextBtnDispatch(true);
+            this.handleAnswerClick();
           } }
           disabled={ disabled }
         >
@@ -109,13 +99,18 @@ class Questions extends React.Component {
   }
 
 handleColor = () => {
-  const { stopTimer } = this.props;
+  const { stopTimerAction } = this.props;
   this.setState({
     colorGreen: 'colorButtonCorrect',
     colorRed: 'colorButtonIncorrect',
-    disabled: true,
   });
-  return stopTimer(true);
+  return stopTimerAction(true);
+}
+
+handleAnswerClick() {
+  this.handleColor();
+  this.callDisabledDispatch(true);
+  this.callNextBtnDispatch(true);
 }
 
 callNextBtnDispatch(value) {
@@ -156,7 +151,6 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
-      next: false,
     });
     return this.callDisabledDispatch(false);
   }
@@ -170,7 +164,7 @@ renderNextBtn() {
     <button
       type="button"
       data-testid="btn-next"
-      onClick={ () => this.handleNextClick(index) }
+      onClick={ () => { this.handleNextClick(index); } }
     >
       Next
     </button>);
@@ -190,7 +184,12 @@ render() {
 }
 Questions.propTypes = {
   questions: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  setDisabled: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  stopTimerAction: PropTypes.func.isRequired,
+  setNext: PropTypes.func.isRequired,
+  next: PropTypes.bool.isRequired,
 };
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
@@ -198,7 +197,7 @@ const mapStateToProps = (state) => ({
   next: state.answer.nextBtn,
 });
 const mapDispatchToProps = (dispatch) => ({
-  stopTimer: (state) => dispatch(stopTimer(state)),
+  stopTimerAction: (state) => dispatch(stopTimer(state)),
   setDisabled: (state) => dispatch(answerDisabled(state)),
   setNext: (state) => dispatch(nextBtn(state)) });
 
