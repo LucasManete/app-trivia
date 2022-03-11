@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './style.css';
+import Interval from './Interval';
 
 class Questions extends React.Component {
   state = {
@@ -95,6 +96,7 @@ handleColor = () => {
     disabled: true,
     next: true,
   });
+  clearInterval(this.myinterval);
 }
 
 questionToRender() {
@@ -150,6 +152,7 @@ render() {
   const { loading, index, next } = this.state;
   return (
     <div>
+      <Interval />
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>
