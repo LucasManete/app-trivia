@@ -130,7 +130,7 @@ handleNextClick(index) {
     });
   } else {
     // this.setState({ loading: true });
-    history.push('/feedbak');
+    history.push('/feedback');
   }
 }
 
