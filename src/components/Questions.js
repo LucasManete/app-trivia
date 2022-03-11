@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './style.css';
 import Interval from './Interval';
+import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
 
 class Questions extends React.Component {
   state = {
@@ -21,7 +22,8 @@ class Questions extends React.Component {
   }
 
   getBollAnswers(quest) {
-    const { colorGreen, colorRed, disabled } = this.state;
+    const { colorGreen, colorRed } = this.state;
+    const { disabled } = this.props;
     const answers = [...quest.incorrect_answers, quest.correct_answer].sort();
     const incorrects = quest.incorrect_answers;
     return answers.map((answer) => {
@@ -30,7 +32,11 @@ class Questions extends React.Component {
           <button
             type="button"
             data-testid="wrong-answer-0"
-            onClick={ this.handleColor }
+            onClick={ () => {
+              this.handleColor();
+              this.callDisabledDispatch(true);
+              this.callNextBtnDispatch(true);
+            } }
             className={ colorGreen }
             disabled={ disabled }
           >
@@ -42,7 +48,11 @@ class Questions extends React.Component {
           type="button"
           key="0"
           data-testid="correct-answer"
-          onClick={ this.handleColor }
+          onClick={ () => {
+            this.handleColor();
+            this.callDisabledDispatch(true);
+            this.callNextBtnDispatch(true);
+          } }
           className={ colorRed }
           disabled={ disabled }
         >
@@ -52,7 +62,8 @@ class Questions extends React.Component {
   }
 
   getMultipleAnswers(quest) {
-    const { colorGreen, colorRed, disabled } = this.state;
+    const { colorGreen, colorRed } = this.state;
+    const { disabled } = this.props;
     // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
     const maxRandom = 0.5;
     const answers = [...quest.incorrect_answers, quest.correct_answer]
@@ -65,7 +76,11 @@ class Questions extends React.Component {
             key="4"
             type="button"
             data-testid="correct-answer"
-            onClick={ this.handleColor }
+            onClick={ () => {
+              this.handleColor();
+              this.callDisabledDispatch(true);
+              this.callNextBtnDispatch(true);
+            } }
             className={ colorGreen }
             disabled={ disabled }
           >
@@ -80,7 +95,11 @@ class Questions extends React.Component {
           key={ index }
           data-testid={ `wrong-answer-${index}` }
           className={ colorRed }
-          onClick={ this.handleColor }
+          onClick={ () => {
+            this.handleColor();
+            this.callDisabledDispatch(true);
+            this.callNextBtnDispatch(true);
+          } }
           disabled={ disabled }
         >
           {answer}
@@ -90,13 +109,23 @@ class Questions extends React.Component {
   }
 
 handleColor = () => {
+  const { stopTimer } = this.props;
   this.setState({
     colorGreen: 'colorButtonCorrect',
     colorRed: 'colorButtonIncorrect',
     disabled: true,
-    next: true,
   });
-  clearInterval(this.myinterval);
+  return stopTimer(true);
+}
+
+callNextBtnDispatch(value) {
+  const { setNext } = this.props;
+  return setNext(value);
+}
+
+callDisabledDispatch(value) {
+  const { setDisabled } = this.props;
+  return setDisabled(value);
 }
 
 questionToRender() {
@@ -127,13 +156,12 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
-      disabled: false,
       next: false,
     });
-  } else {
-    // this.setState({ loading: true });
-    history.push('/feedbak');
+    return this.callDisabledDispatch(false);
   }
+  // this.setState({ loading: true });
+  history.push('/feedbak');
 }
 
 renderNextBtn() {
@@ -149,7 +177,8 @@ renderNextBtn() {
 }
 
 render() {
-  const { loading, index, next } = this.state;
+  const { loading, index } = this.state;
+  const { next } = this.props;
   return (
     <div>
       <Interval />
@@ -165,5 +194,12 @@ Questions.propTypes = {
 };
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
+  disabled: state.answer.disabled,
+  next: state.answer.nextBtn,
 });
-export default connect(mapStateToProps, null)(Questions);
+const mapDispatchToProps = (dispatch) => ({
+  stopTimer: (state) => dispatch(stopTimer(state)),
+  setDisabled: (state) => dispatch(answerDisabled(state)),
+  setNext: (state) => dispatch(nextBtn(state)) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
