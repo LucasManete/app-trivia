@@ -108,21 +108,11 @@ handleColor = () => {
   return stopTimerAction(true);
 }
 
-handleAnswerClick() {
-  this.handleColor();
-  this.callDisabledDispatch(true);
-  this.callNextBtnDispatch(true);
-}
-
-callNextBtnDispatch(value) {
-  const { setNext } = this.props;
-  return setNext(value);
-}
-
-callDisabledDispatch(value) {
-  const { setDisabled } = this.props;
-  return setDisabled(value);
-}
+restartTimer = (value) => {
+  this.setState({
+    renderTimer: value,
+  });
+};
 
 questionToRender() {
   const { questions, index } = this.state;
@@ -144,27 +134,37 @@ questionToRender() {
   );
 }
 
-restartTimer = (value) => {
+callDisabledDispatch(value) {
+  const { setDisabled } = this.props;
+  return setDisabled(value);
+}
+
+callNextBtnDispatch(value) {
+  const { setNext } = this.props;
+  return setNext(value);
+}
+
+handleAnswerClick() {
+  this.handleColor();
+  this.callDisabledDispatch(true);
+  this.callNextBtnDispatch(true);
   this.setState({
-    renderTimer: value,
+    renderTimer: false,
   });
-};
+}
 
 handleNextClick(index) {
   const { history } = this.props;
-  const { renderTimer } = this.state;
   const maxIndex = 4;
   if (index < maxIndex) {
     this.setState({
       index: index + 1,
       colorGreen: '',
       colorRed: '',
+      renderTimer: true,
     });
-    this.restartTimer(false);
     return this.callDisabledDispatch(false);
   }
-
-  // this.setState({ loading: true });
   history.push('/feedbak');
 }
 
@@ -185,10 +185,12 @@ render() {
   const { next } = this.props;
   return (
     <div>
-      <Interval
+      {renderTimer ? <Interval
         render={ renderTimer }
-        renderFunction={ this.restartTimer }
+        restartTimeFunction={ this.restartTimer }
       />
+        : null}
+
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>
