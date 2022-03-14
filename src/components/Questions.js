@@ -12,11 +12,7 @@ class Questions extends React.Component {
     index: 0,
     colorRed: '',
     colorGreen: '',
-<<<<<<< HEAD
-    initialState: false,
-=======
     renderTimer: true,
->>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
   }
 
   componentDidMount() {
@@ -138,13 +134,6 @@ questionToRender() {
   );
 }
 
-<<<<<<< HEAD
-// setInitialState = (value) => {
-//   this.setState({
-//     initialState: value,
-//   });
-// }
-=======
 callDisabledDispatch(value) {
   const { setDisabled } = this.props;
   return setDisabled(value);
@@ -163,7 +152,6 @@ handleAnswerClick() {
     renderTimer: false,
   });
 }
->>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
 
 handleNextClick(index) {
   const { history } = this.props;
@@ -173,11 +161,7 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
-<<<<<<< HEAD
-      initialState: true,
-=======
       renderTimer: true,
->>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
     });
     console.log('True');
     return this.callDisabledDispatch(false);
@@ -198,13 +182,6 @@ renderNextBtn() {
 }
 
 render() {
-<<<<<<< HEAD
-  const { loading, index, initialState } = this.state;
-  const { next } = this.props;
-  return (
-    <div>
-      <Interval initialState={ initialState } />
-=======
   const { loading, index, renderTimer } = this.state;
   const { next } = this.props;
   return (
@@ -215,7 +192,6 @@ render() {
       />
         : null}
 
->>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>

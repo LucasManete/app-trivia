@@ -22,11 +22,7 @@ class Interval extends React.Component {
 
   componentDidUpdate() {
     const { time } = this.state;
-    const { setDisabled, setNext, setTimer, initialState } = this.props;
-    if (initialState === true) {
-      const interval = this.handleTime();
-      clearInterval(interval);
-    }
+    const { setDisabled, setNext, setTimer } = this.props;
     setTimer(time);
     if (time === 0) {
       setDisabled(true);
