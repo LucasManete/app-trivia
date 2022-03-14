@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { answerDisabled, nextBtn, setTime, stopTimer } from '../redux/actions';
+import { saveLocalStorage } from '../services/localStorage';
 
 class Interval extends React.Component {
   state = {
@@ -10,9 +11,7 @@ class Interval extends React.Component {
 
   componentDidMount() {
     const { stopTimerAction, setNext } = this.props;
-    console.log('montei');
     const interval = this.handleTime();
-    console.log(interval, 'componente didi mount');
     this.setState({
       interval,
     });
@@ -23,6 +22,7 @@ class Interval extends React.Component {
   componentDidUpdate() {
     const { time } = this.state;
     const { setDisabled, setNext, setTimer } = this.props;
+    saveLocalStorage('timer', time);
     setTimer(time);
     if (time === 0) {
       setDisabled(true);
@@ -36,10 +36,8 @@ class Interval extends React.Component {
   }
 
   handleTime = () => {
-    console.log('handleTime foi chamado');
     const seconds = 1000;
     const intervalId = setInterval(() => {
-      console.log('timer esta acontecendo');
       this.setState((prevState) => ({
         time: prevState.time - 1,
       }));
