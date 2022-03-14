@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './style.css';
+import './questions.css';
 import Interval from './Interval';
 import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
 
