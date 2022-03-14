@@ -13,6 +13,8 @@ function playerReducer(state = INITIAL_STATE, action) {
       name: action.state.name,
       gravatarEmail: action.state.gravatar,
       questions: action.state.questions };
+  case 'SET_SCORE':
+    return { ...state, score: action.state.score, assertions: action.state.assertions };
   default:
     return state;
   }

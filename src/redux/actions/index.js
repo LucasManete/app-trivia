@@ -7,6 +7,7 @@ export const stopTimer = (state) => ({ type: 'STOP_TIME', state });
 export const answerDisabled = (state) => ({ type: 'ANSWER_DISABLED', state });
 export const nextBtn = (state) => ({ type: 'CHANGE_NEXT', state });
 export const setTime = (state) => ({ type: 'SET_TIME', state });
+export const countScore = (state) => ({ type: 'SET_SCORE', state });
 const fetchTokenApi = async () => {
   try {
     const url = 'https://opentdb.com/api_token.php?command=request';

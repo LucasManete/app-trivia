@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './questions.css';
 import Interval from './Interval';
-import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
+import { stopTimer, answerDisabled, nextBtn, countScore } from '../redux/actions';
+import { checkScore } from '../services/helpers';
 
 class Questions extends React.Component {
   state = {
@@ -32,7 +33,7 @@ class Questions extends React.Component {
             type="button"
             data-testid="wrong-answer-0"
             onClick={ () => {
-              this.handleAnswerClick();
+              this.handleAnswerClick('wrong');
             } }
             className={ colorGreen }
             disabled={ disabled }
@@ -46,7 +47,7 @@ class Questions extends React.Component {
           key="0"
           data-testid="correct-answer"
           onClick={ () => {
-            this.handleAnswerClick();
+            this.handleAnswerClick('rigth');
           } }
           className={ colorRed }
           disabled={ disabled }
@@ -72,7 +73,7 @@ class Questions extends React.Component {
             type="button"
             data-testid="correct-answer"
             onClick={ () => {
-              this.handleAnswerClick();
+              this.handleAnswerClick('rigth');
             } }
             className={ colorGreen }
             disabled={ disabled }
@@ -89,7 +90,7 @@ class Questions extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ colorRed }
           onClick={ () => {
-            this.handleAnswerClick();
+            this.handleAnswerClick('wrong');
           } }
           disabled={ disabled }
         >
@@ -102,8 +103,7 @@ class Questions extends React.Component {
 handleColor = () => {
   const { stopTimerAction } = this.props;
   this.setState({
-    colorGreen: 'colorButtonCorrect',
-    colorRed: 'colorButtonIncorrect',
+    colorGreen: 'colorButtonCorrect', colorRed: 'colorButtonIncorrect',
   });
   return stopTimerAction(true);
 }
@@ -116,22 +116,27 @@ restartTimer = (value) => {
 
 questionToRender() {
   const { questions, index } = this.state;
-  const { results } = questions;
-  const quest = results[index];
-  const { type } = quest;
+  const { history } = this.props;
+  try {
+    const { results } = questions;
+    const quest = results[index];
+    const { type } = quest;
 
-  return (
-    <>
-      <span data-testid="question-category">{quest.category}</span>
-      <span data-testid="question-text">{quest.question}</span>
-      <div className="answers-div" data-testid="answer-options">
-        {type === 'multiple'
-          ? this.getMultipleAnswers(quest)
-          : this.getBollAnswers(quest)}
-      </div>
+    return (
+      <>
+        <span data-testid="question-category">{quest.category}</span>
+        <span data-testid="question-text">{quest.question}</span>
+        <div className="answers-div" data-testid="answer-options">
+          {type === 'multiple'
+            ? this.getMultipleAnswers(quest)
+            : this.getBollAnswers(quest)}
+        </div>
 
-    </>
-  );
+      </>
+    );
+  } catch (error) {
+    history.push('/');
+  }
 }
 
 callDisabledDispatch(value) {
@@ -144,13 +149,24 @@ callNextBtnDispatch(value) {
   return setNext(value);
 }
 
-handleAnswerClick() {
+handleAnswerClick(answer) {
+  const { index, questions } = this.state;
+  const { score, assertions, countScoreAction, name, urlGravatar } = this.props;
   this.handleColor();
   this.callDisabledDispatch(true);
   this.callNextBtnDispatch(true);
   this.setState({
     renderTimer: false,
   });
+  if (answer === 'rigth') {
+    checkScore({ index,
+      questions,
+      score,
+      assertions,
+      countScoreAction,
+      name,
+      urlGravatar });
+  }
 }
 
 handleNextClick(index) {
@@ -205,15 +221,26 @@ Questions.propTypes = {
   stopTimerAction: PropTypes.func.isRequired,
   setNext: PropTypes.func.isRequired,
   next: PropTypes.bool.isRequired,
+  score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
+  countScoreAction: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  urlGravatar: PropTypes.string.isRequired,
 };
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
   disabled: state.answer.disabled,
   next: state.answer.nextBtn,
+  score: state.player.score,
+  assertions: state.player.assertions,
+  name: state.player.name,
+  urlGravatar: state.player.gravatarEmail,
 });
 const mapDispatchToProps = (dispatch) => ({
   stopTimerAction: (state) => dispatch(stopTimer(state)),
   setDisabled: (state) => dispatch(answerDisabled(state)),
-  setNext: (state) => dispatch(nextBtn(state)) });
+  setNext: (state) => dispatch(nextBtn(state)),
+  countScoreAction: (state) => dispatch(countScore(state)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
