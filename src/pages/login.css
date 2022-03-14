@@ -1,4 +1,4 @@
-.btn-play, .btn-settings{
+.btn-play, .btn-settings {
   background-color: white;
   background-image: linear-gradient(45deg, #f1c40f 50%, transparent 50%);
   background-position: 100%;
@@ -13,14 +13,15 @@
   width: 110px;
 }
 
-.btn-play:hover, .btn-settings:hover{
+.btn-play:hover, .btn-settings:hover {
   background-position: 0;
   border-color: #f1c40f;
 }
+
 .name-input, .email-input {
   background: transparent;
-  border-bottom: 2px solid gray;
   border: 0;
+  border-bottom: 2px solid gray;
   color: white;
   font-family: inherit;
   font-size: 1.3rem;
@@ -29,25 +30,29 @@
   transition: border-color 0.2s;
   width: 100%;
 }
+
 form {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 input:focus {
-  border-image-slice: 1;
   border-image: linear-gradient(to right, #f1c40f,rgb(190, 190, 201));
+  border-image-slice: 1;
   border-width: 3px;
   font-weight: 700;
   padding-bottom: 6px;  
 }
+
 .login-section {
+  background-color: #1413136b;
 	border-radius:3px;
 	padding:50px 70px;
-  background-color: #1413136b;
   margin-top: 20px;
 }
+
 @media screen and (max-width: 768px){
   form{
     height: 30vh;
