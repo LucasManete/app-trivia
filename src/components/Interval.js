@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { answerDisabled, nextBtn, setTime } from '../redux/actions';
+import { answerDisabled, nextBtn, setTime, stopTimer } from '../redux/actions';
 
 class Interval extends React.Component {
   state = {
@@ -9,10 +9,15 @@ class Interval extends React.Component {
   }
 
   componentDidMount() {
+    const { stopTimerAction, setNext } = this.props;
+    console.log('montei');
     const interval = this.handleTime();
+    console.log(interval, 'componente didi mount');
     this.setState({
       interval,
     });
+    stopTimerAction(false);
+    setNext(false);
   }
 
   componentDidUpdate() {
@@ -29,9 +34,16 @@ class Interval extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    const { interval } = this.state;
+    clearInterval(interval);
+  }
+
   handleTime = () => {
+    console.log('handleTime foi chamado');
     const seconds = 1000;
     const intervalId = setInterval(() => {
+      console.log('timer esta acontecendo');
       this.setState((prevState) => ({
         time: prevState.time - 1,
       }));
@@ -46,28 +58,36 @@ class Interval extends React.Component {
     return setDisabled(true);
   }
 
-  render() {
+  ToRender() {
     const { time, interval } = this.state;
-    const { stop } = this.props;
+    const { stop, restartTimeFunction } = this.props;
     return (
       <>
         <p>{time}</p>
         {stop === true ? clearInterval(interval) : null}
         <span>
-          {time === 0 ? clearInterval(interval) : null}
+          {time === 0 ? restartTimeFunction(false) : null}
         </span>
       </>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.ToRender()}
+      </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
   stop: state.timer.stop,
-  // time: state.timer.time,
 });
 const mapDispatchToProps = (dispatch) => ({
   setDisabled: (state) => dispatch(answerDisabled(state)),
   setNext: (state) => dispatch(nextBtn(state)),
   setTimer: (state) => dispatch(setTime(state)),
+  stopTimerAction: (state) => dispatch(stopTimer(state)),
 });
 const { bool, func } = PropTypes;
 Interval.propTypes = {
@@ -75,6 +95,8 @@ Interval.propTypes = {
   setDisabled: func.isRequired,
   setNext: func.isRequired,
   setTimer: func.isRequired,
+  restartTimeFunction: func.isRequired,
+  stopTimerAction: func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Interval);

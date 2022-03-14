@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './style.css';
+import './questions.css';
 import Interval from './Interval';
 import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
 
@@ -12,7 +12,11 @@ class Questions extends React.Component {
     index: 0,
     colorRed: '',
     colorGreen: '',
+<<<<<<< HEAD
     initialState: false,
+=======
+    renderTimer: true,
+>>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
   }
 
   componentDidMount() {
@@ -108,21 +112,11 @@ handleColor = () => {
   return stopTimerAction(true);
 }
 
-handleAnswerClick() {
-  this.handleColor();
-  this.callDisabledDispatch(true);
-  this.callNextBtnDispatch(true);
-}
-
-callNextBtnDispatch(value) {
-  const { setNext } = this.props;
-  return setNext(value);
-}
-
-callDisabledDispatch(value) {
-  const { setDisabled } = this.props;
-  return setDisabled(value);
-}
+restartTimer = (value) => {
+  this.setState({
+    renderTimer: value,
+  });
+};
 
 questionToRender() {
   const { questions, index } = this.state;
@@ -144,11 +138,32 @@ questionToRender() {
   );
 }
 
+<<<<<<< HEAD
 // setInitialState = (value) => {
 //   this.setState({
 //     initialState: value,
 //   });
 // }
+=======
+callDisabledDispatch(value) {
+  const { setDisabled } = this.props;
+  return setDisabled(value);
+}
+
+callNextBtnDispatch(value) {
+  const { setNext } = this.props;
+  return setNext(value);
+}
+
+handleAnswerClick() {
+  this.handleColor();
+  this.callDisabledDispatch(true);
+  this.callNextBtnDispatch(true);
+  this.setState({
+    renderTimer: false,
+  });
+}
+>>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
 
 handleNextClick(index) {
   const { history } = this.props;
@@ -158,12 +173,15 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
+<<<<<<< HEAD
       initialState: true,
+=======
+      renderTimer: true,
+>>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
     });
     console.log('True');
     return this.callDisabledDispatch(false);
   }
-  // this.setState({ loading: true });
   history.push('/feedback');
 }
 
@@ -180,11 +198,24 @@ renderNextBtn() {
 }
 
 render() {
+<<<<<<< HEAD
   const { loading, index, initialState } = this.state;
   const { next } = this.props;
   return (
     <div>
       <Interval initialState={ initialState } />
+=======
+  const { loading, index, renderTimer } = this.state;
+  const { next } = this.props;
+  return (
+    <div>
+      {renderTimer ? <Interval
+        render={ renderTimer }
+        restartTimeFunction={ this.restartTimer }
+      />
+        : null}
+
+>>>>>>> 0ecc1b8286f797d6c113d31f188b3be8cd6215bf
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>
