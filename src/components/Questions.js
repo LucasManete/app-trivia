@@ -164,7 +164,7 @@ handleNextClick(index) {
     return this.callDisabledDispatch(false);
   }
   // this.setState({ loading: true });
-  history.push('/feedbak');
+  history.push('/feedback');
 }
 
 renderNextBtn() {
