@@ -19,20 +19,21 @@ class Feedback extends React.Component {
           <p data-testid="header-score">{ score }</p>
         </header>
         <section>
-          <h2 data-testid="feedback-text">
+          {/* <h2 data-testid="feedback-text">
             { assertions < numQuestions ? 'Could be better...' : 'Well Done!'}
-          </h2>
+          </h2> */}
           {
             (assertions < numQuestions)
               ? <p data-testid="feedback-text">Could be better...</p>
               : <p data-testid="feedback-text">Well Done!</p>
           }
+          <p>Placar Final</p>
           <p data-testid="feedback-total-score">
-            Placar Final:
             { score }
           </p>
+          <p>Você acertou:</p>
           <p data-testid="feedback-total-question">
-            {`Você acertou: ${assertions} perguntas`}
+            {assertions}
           </p>
           <Link to="/">
             <button type="submit" data-testid="btn-play-again">Play Again</button>
