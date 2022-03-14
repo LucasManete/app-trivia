@@ -50,7 +50,7 @@ input:focus {
   background-color: #1413136b;
   border-radius: 3px;
   margin-top: 20px;
-	padding:50px 70px;
+  padding: 50px 70px;
 }
 
 @media screen and ( max-width : 768px ) {
