@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './style.css';
+import './questions.css';
 import Interval from './Interval';
 import { stopTimer, answerDisabled, nextBtn } from '../redux/actions';
 
@@ -12,6 +12,7 @@ class Questions extends React.Component {
     index: 0,
     colorRed: '',
     colorGreen: '',
+    renderTimer: true,
   }
 
   componentDidMount() {
@@ -107,21 +108,11 @@ handleColor = () => {
   return stopTimerAction(true);
 }
 
-handleAnswerClick() {
-  this.handleColor();
-  this.callDisabledDispatch(true);
-  this.callNextBtnDispatch(true);
-}
-
-callNextBtnDispatch(value) {
-  const { setNext } = this.props;
-  return setNext(value);
-}
-
-callDisabledDispatch(value) {
-  const { setDisabled } = this.props;
-  return setDisabled(value);
-}
+restartTimer = (value) => {
+  this.setState({
+    renderTimer: value,
+  });
+};
 
 questionToRender() {
   const { questions, index } = this.state;
@@ -143,6 +134,25 @@ questionToRender() {
   );
 }
 
+callDisabledDispatch(value) {
+  const { setDisabled } = this.props;
+  return setDisabled(value);
+}
+
+callNextBtnDispatch(value) {
+  const { setNext } = this.props;
+  return setNext(value);
+}
+
+handleAnswerClick() {
+  this.handleColor();
+  this.callDisabledDispatch(true);
+  this.callNextBtnDispatch(true);
+  this.setState({
+    renderTimer: false,
+  });
+}
+
 handleNextClick(index) {
   const { history } = this.props;
   const maxIndex = 4;
@@ -151,10 +161,10 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
+      renderTimer: true,
     });
     return this.callDisabledDispatch(false);
   }
-  // this.setState({ loading: true });
   history.push('/feedback');
 }
 
@@ -171,11 +181,16 @@ renderNextBtn() {
 }
 
 render() {
-  const { loading, index } = this.state;
+  const { loading, index, renderTimer } = this.state;
   const { next } = this.props;
   return (
     <div>
-      <Interval />
+      {renderTimer ? <Interval
+        render={ renderTimer }
+        restartTimeFunction={ this.restartTimer }
+      />
+        : null}
+
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>

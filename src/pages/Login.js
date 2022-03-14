@@ -6,6 +6,7 @@ import md5 from 'crypto-js/md5';
 // import { saveLocalStorage } from '../services/localStorage';
 import logo from '../trivia.png';
 import { fetchQuestionsApi } from '../redux/actions';
+import './login.css';
 
 class Login extends React.Component {
     state = {
@@ -38,34 +39,31 @@ class Login extends React.Component {
     return (
       <div className="App-header">
         <img src={ logo } className="App-logo" alt="logo" />
-        <h1>Login</h1>
-        <form>
-          <div className="">
+        <section className="login-section">
+
+          <h1>Login</h1>
+          <form>
             <input
               className="email-input"
               type="email"
-              placeholder="Digite seu email"
+              placeholder="Email"
               data-testid="input-gravatar-email"
               required
               onChange={ this.handleChange }
               value={ email }
               name="email"
             />
-          </div>
-          <div className="">
             <input
               id="UserName"
               className="name-input"
               type="text"
-              placeholder="Digite seu nome"
+              placeholder="Nome"
               data-testid="input-player-name"
               required
               onChange={ this.handleChange }
               value={ userName }
               name="userName"
             />
-          </div>
-          <div className="btnLogin">
             <button
               data-testid="btn-play"
               className="btn-play"
@@ -78,17 +76,18 @@ class Login extends React.Component {
             >
               Play
             </button>
-          </div>
-          <Link to="/settings">
-            <button
-              data-testid="btn-settings"
-              className="btn-settings"
-              type="button"
-            >
-              Configurações
-            </button>
-          </Link>
-        </form>
+            <Link to="/settings">
+              <button
+                data-testid="btn-settings"
+                className="btn-settings"
+                type="button"
+              >
+                Configurações
+              </button>
+            </Link>
+          </form>
+        </section>
+
       </div>
     );
   }
