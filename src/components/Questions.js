@@ -165,7 +165,7 @@ handleNextClick(index) {
     });
     return this.callDisabledDispatch(false);
   }
-  history.push('/feedbak');
+  history.push('/feedback');
 }
 
 renderNextBtn() {
