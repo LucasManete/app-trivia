@@ -12,6 +12,7 @@ class Questions extends React.Component {
     index: 0,
     colorRed: '',
     colorGreen: '',
+    initialState: false,
   }
 
   componentDidMount() {
@@ -143,6 +144,12 @@ questionToRender() {
   );
 }
 
+// setInitialState = (value) => {
+//   this.setState({
+//     initialState: value,
+//   });
+// }
+
 handleNextClick(index) {
   const { history } = this.props;
   const maxIndex = 4;
@@ -151,7 +158,9 @@ handleNextClick(index) {
       index: index + 1,
       colorGreen: '',
       colorRed: '',
+      initialState: true,
     });
+    console.log('True');
     return this.callDisabledDispatch(false);
   }
   // this.setState({ loading: true });
@@ -171,11 +180,11 @@ renderNextBtn() {
 }
 
 render() {
-  const { loading, index } = this.state;
+  const { loading, index, initialState } = this.state;
   const { next } = this.props;
   return (
     <div>
-      <Interval />
+      <Interval initialState={ initialState } />
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>
