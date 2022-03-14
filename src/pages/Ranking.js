@@ -35,4 +35,4 @@ class Ranking extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Ranking);
+export default connect()(Ranking);
