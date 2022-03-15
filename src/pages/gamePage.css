@@ -11,7 +11,7 @@
 .game-header {
   display: flex;
   width: 100%;
-  background-color: rgba(223, 43, 26, 0.952);
+  background-color: #F58A27;
   /* justify-content: space-between; */
   align-items: center;
 }
@@ -33,10 +33,21 @@
   padding: 10px;
   border-radius: 10px;
   background-color: #EBE419;
+  display: flex;
+  flex-direction: column;
 }
-
+.timer-div {
+background-color: white;
+width: 80px;
+height: 80px;
+font-size: 30px;
+align-self: center;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 100%;
+}
 .question-div {
-  /* border: 1px solid blue; */
   margin: 10px 0;
   font-size: 30px;
 }
@@ -63,13 +74,13 @@
 .answerBtn:disabled  {
   border: 3px solid red;
   background-image: none;
-  /* background-color: red; */
+  background-color: red;
 }
 
 .btn_Answer:disabled  {
   border: 3px solid rgb(6, 240, 15);
   background-image: none;
-  /* background-color: rgb(6, 240, 15); */
+  background-color: rgb(6, 240, 15);
 }
 
 .answerBtn:hover, .btn_Answer:hover {
@@ -81,6 +92,9 @@
 .nextBtn{
   transition: width 2s, height 2s, transform 2s;
   border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  align-self: center;
 }
 
 .nextBtn:hover {

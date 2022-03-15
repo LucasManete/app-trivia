@@ -57,12 +57,11 @@ class Interval extends React.Component {
     const { stop, restartTimeFunction } = this.props;
     return (
       <>
-        <p>{time}</p>
+        {time}
         {stop === true ? clearInterval(interval) : null}
-        <span>
-          {time === 0 ? restartTimeFunction(false) : null}
-        </span>
+        {time === 0 ? restartTimeFunction(false) : null}
       </>
+
     );
   }
 

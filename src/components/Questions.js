@@ -177,8 +177,8 @@ handleNextClick(index) {
     return this.callDisabledDispatch(false);
   }
   const { score, name, urlGravatar } = this.props;
-  saveRankingStorage({ name, score, picture: urlGravatar });
   history.push('/feedback');
+  saveRankingStorage({ name, score, picture: urlGravatar });
   return this.callDisabledDispatch(false);
 }
 
@@ -199,15 +199,17 @@ render() {
   const { loading, index, renderTimer } = this.state;
   const { next } = this.props;
   return (
-    <div>
-      {renderTimer ? <Interval
-        render={ renderTimer }
-        restartTimeFunction={ this.restartTimer }
-      />
-        : null}
+    <>
+      <div className="timer-div">
+        {renderTimer ? <Interval
+          render={ renderTimer }
+          restartTimeFunction={ this.restartTimer }
+        />
+          : null}
+      </div>
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
-    </div>
+    </>
   );
 }
 }
