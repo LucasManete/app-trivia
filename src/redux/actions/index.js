@@ -4,6 +4,7 @@ export const USER_TOKEN = 'USER_TOKEN';
 export const login = (state) => ({ type: USER_TOKEN, state });
 export const getPlayer = (state) => ({ type: 'GET_PLAYER', state });
 export const stopTimer = (state) => ({ type: 'STOP_TIME', state });
+export const renderTimer = (state) => ({ type: 'RENDER_TIME', state });
 export const answerDisabled = (state) => ({ type: 'ANSWER_DISABLED', state });
 export const nextBtn = (state) => ({ type: 'CHANGE_NEXT', state });
 export const setTime = (state) => ({ type: 'SET_TIME', state });
