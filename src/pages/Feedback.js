@@ -26,9 +26,6 @@ class Feedback extends React.Component {
           <p data-testid="header-score">{ score }</p>
         </header>
         <section>
-          {/* <h2 data-testid="feedback-text">
-            { assertions < numQuestions ? 'Could be better...' : 'Well Done!'}
-          </h2> */}
           {
             (assertions < numQuestions)
               ? <p data-testid="feedback-text">Could be better...</p>
@@ -37,7 +34,6 @@ class Feedback extends React.Component {
           <p>Placar Final</p>
           <p data-testid="feedback-total-score">
             { score }
-            {console.log(score)}
           </p>
           <p>Você acertou:</p>
           <p data-testid="feedback-total-question">
