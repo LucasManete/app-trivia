@@ -2,8 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { resetScore } from '../redux/actions';
+// import { saveRankingStorage } from '../services/localStorage';
 
 class Feedback extends React.Component {
+  resetScoreFeedback = () => {
+    const { resetScoreAction } = this.props;
+    resetScoreAction({ score: 0 });
+  };
+
   render() {
     const numQuestions = 3;
     const { imgGravatar, userName, score, assertions } = this.props;
@@ -30,12 +37,20 @@ class Feedback extends React.Component {
           <p data-testid="feedback-total-score">
             Placar Final:
             { score }
+            {console.log(score)}
           </p>
           <p data-testid="feedback-total-question">
             {`Você acertou: ${assertions} perguntas`}
           </p>
           <Link to="/">
-            <button type="submit" data-testid="btn-play-again">Play Again</button>
+            <button
+              type="submit"
+              data-testid="btn-play-again"
+              onClick={ this.resetScoreFeedback }
+            >
+              Play Again
+
+            </button>
           </Link>
           <Link to="/ranking">
             <button type="submit" data-testid="btn-ranking">Ranking</button>
@@ -53,10 +68,15 @@ const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  resetScoreAction: (score) => dispatch(resetScore(score)),
+});
+
 Feedback.propTypes = {
   userName: PropTypes.string.isRequired,
   imgGravatar: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
+  resetScoreAction: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

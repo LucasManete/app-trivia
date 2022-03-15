@@ -1,16 +1,13 @@
 // import { connect } from 'react-redux';
 // import { countScore } from '../redux/actions';
-import { getLocalStorage, saveLocalStorage } from './localStorage';
+import { getLocalStorage } from './localStorage';
 
 export const checkScore = (informations) => {
   const { index,
     questions,
     score,
     assertions,
-    countScoreAction,
-    name,
-    urlGravatar } = informations;
-
+    countScoreAction } = informations;
   const POINTS = 10;
   const EASY = 1;
   const MEDIUM = 2;
@@ -18,19 +15,20 @@ export const checkScore = (informations) => {
   const timerStorage = getLocalStorage('timer');
   const { results } = questions;
   const { difficulty } = results[index];
+  console.log(score);
   if (difficulty === 'easy') {
     const totalScore = score + POINTS + (timerStorage * EASY);
-    saveLocalStorage('ranking', { name, score: totalScore, picture: urlGravatar });
+    // saveRankingStorage({ name, score: totalScore, picture: urlGravatar });
     return countScoreAction({ score: totalScore, assertions: assertions + 1 });
   }
   if (difficulty === 'medium') {
     const totalScore = score + POINTS + (timerStorage * MEDIUM);
-    saveLocalStorage('ranking', { name, score: totalScore, picture: urlGravatar });
+    // saveRankingStorage({ name, score: totalScore, picture: urlGravatar });
     return countScoreAction({ score: totalScore, assertions: assertions + 1 });
   }
   if (difficulty === 'hard') {
     const totalScore = score + POINTS + (timerStorage * HARD);
-    saveLocalStorage('ranking', { name, score: totalScore, picture: urlGravatar });
+    // saveRankingStorage({ name, score: totalScore, picture: urlGravatar });
     return countScoreAction({ score: totalScore, assertions: assertions + 1 });
   }
 };
