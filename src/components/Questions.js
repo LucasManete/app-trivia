@@ -11,8 +11,6 @@ class Questions extends React.Component {
     questions: [],
     loading: true,
     index: 0,
-    colorRed: '',
-    colorGreen: '',
     renderTimer: true,
   }
 
@@ -22,7 +20,6 @@ class Questions extends React.Component {
   }
 
   getBollAnswers(quest) {
-    const { colorGreen, colorRed } = this.state;
     const { disabled } = this.props;
     const answers = [...quest.incorrect_answers, quest.correct_answer].sort();
     const incorrects = quest.incorrect_answers;
@@ -35,8 +32,8 @@ class Questions extends React.Component {
             onClick={ () => {
               this.handleAnswerClick('wrong');
             } }
-            className={ colorGreen }
-            disabled={ disabled }
+            className="answerBtn"
+            disabled="{ disabled }"
           >
             {answer}
           </button>);
@@ -49,7 +46,7 @@ class Questions extends React.Component {
           onClick={ () => {
             this.handleAnswerClick('rigth');
           } }
-          className={ colorRed }
+          className="btn_Answer"
           disabled={ disabled }
         >
           {answer}
@@ -58,7 +55,6 @@ class Questions extends React.Component {
   }
 
   getMultipleAnswers(quest) {
-    const { colorGreen, colorRed } = this.state;
     const { disabled } = this.props;
     // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
     const maxRandom = 0.5;
@@ -75,7 +71,7 @@ class Questions extends React.Component {
             onClick={ () => {
               this.handleAnswerClick('rigth');
             } }
-            className={ colorGreen }
+            className="btn_Answer"
             disabled={ disabled }
           >
             {answer}
@@ -88,7 +84,7 @@ class Questions extends React.Component {
           type="button"
           key={ index }
           data-testid={ `wrong-answer-${index}` }
-          className={ colorRed }
+          className="answerBtn"
           onClick={ () => {
             this.handleAnswerClick('wrong');
           } }
@@ -100,11 +96,8 @@ class Questions extends React.Component {
     });
   }
 
-handleColor = () => {
+callStopTimer = () => {
   const { stopTimerAction } = this.props;
-  this.setState({
-    colorGreen: 'colorButtonCorrect', colorRed: 'colorButtonIncorrect',
-  });
   return stopTimerAction(true);
 }
 
@@ -124,8 +117,11 @@ questionToRender() {
 
     return (
       <>
-        <span data-testid="question-category">{quest.category}</span>
-        <span data-testid="question-text">{quest.question}</span>
+
+        <div className="question-div">
+          <span data-testid="question-category">{quest.category}</span>
+          <span data-testid="question-text">{quest.question}</span>
+        </div>
         <div className="answers-div" data-testid="answer-options">
           {type === 'multiple'
             ? this.getMultipleAnswers(quest)
@@ -152,7 +148,7 @@ callNextBtnDispatch(value) {
 handleAnswerClick(answer) {
   const { index, questions } = this.state;
   const { score, assertions, countScoreAction, name, urlGravatar } = this.props;
-  this.handleColor();
+  this.callStopTimer();
   this.callDisabledDispatch(true);
   this.callNextBtnDispatch(true);
   this.setState({
@@ -175,8 +171,6 @@ handleNextClick(index) {
   if (index < maxIndex) {
     this.setState({
       index: index + 1,
-      colorGreen: '',
-      colorRed: '',
       renderTimer: true,
     });
     return this.callDisabledDispatch(false);
@@ -190,6 +184,7 @@ renderNextBtn() {
     <button
       type="button"
       data-testid="btn-next"
+      className="nextBtn"
       onClick={ () => { this.handleNextClick(index); } }
     >
       Next

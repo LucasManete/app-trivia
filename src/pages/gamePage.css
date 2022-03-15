@@ -1,0 +1,93 @@
+.game-pag {
+  /* background-color: #b7dfa7; */
+  background-image: url('tijoloEscuro.jpg');
+  width: 100%vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-header {
+  display: flex;
+  width: 100%;
+  background-color: rgba(223, 43, 26, 0.952);
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.user-Image {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+.playerName, .playerScore {
+  margin: 10px;
+}
+
+.questions-section{
+  width: 500px;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(91, 230, 26, 0.418);
+}
+
+.question-div {
+  border: 1px solid blue;
+  margin: 10px 0;
+  font-size: 30px;
+}
+
+.answers-div {
+  background-color: rgb(240, 234, 234);
+  display: flex;
+  flex-direction: column;
+}
+
+.btn_Answer, .answerBtn, .nextBtn {
+  height: 50px;
+  margin: 10px;
+  color:black;
+  background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
+  background-position: 90%;
+  background-size: 500%;
+  transition: background 700ms ease-in-out;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.answerBtn:disabled  {
+  border: 3px solid red;
+  background-image: none;
+  background-color: red;
+}
+
+.btn_Answer:disabled  {
+  border: 3px solid rgb(6, 240, 15);
+  background-image: none;
+  background-color: rgb(6, 240, 15);
+}
+
+.answerBtn:hover, .btn_Answer:hover, .nextBtn:hover {
+  box-shadow: 1px 1px 25px 10px rgba(207, 90, 61, 0.4);
+  background-position: 0;
+  color: white;
+  
+}
+.nextBtn{
+  transition: width 2s, height 2s, transform 2s;
+  border-radius: 10px;
+}
+
+.nextBtn:hover {
+  transform: rotate(360deg);
+}
+
+
+#btnAnswer:hover:before {
+  left: 100%;
+}
+
