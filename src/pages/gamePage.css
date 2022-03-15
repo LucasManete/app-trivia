@@ -1,0 +1,112 @@
+.game-pag {
+  background-color: #282c34;;
+  /* background-image: url('tijoloEscuro.jpg'); */
+  width: 100%vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-header {
+  display: flex;
+  width: 100%;
+  background-color: #F58A27;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.user-Image {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+.playerName, .playerScore {
+  margin: 10px;
+}
+
+.questions-section{
+  width: 500px;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #EBE419;
+  display: flex;
+  flex-direction: column;
+}
+.timer-div {
+background-color: white;
+width: 80px;
+height: 80px;
+font-size: 30px;
+align-self: center;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 100%;
+}
+.question-div {
+  margin: 10px 0;
+  font-size: 30px;
+}
+
+.answers-div {
+  background-color: #F58A27;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn_Answer, .answerBtn, .nextBtn {
+  height: 50px;
+  margin: 10px;
+  color:black;
+  background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
+  background-position: 90%;
+  background-size: 500%;
+  transition: background 700ms ease-in-out;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.answerBtn:disabled  {
+  border: 3px solid red;
+  background-image: none;
+  background-color: red;
+}
+
+.btn_Answer:disabled  {
+  border: 3px solid rgb(6, 240, 15);
+  background-image: none;
+  background-color: rgb(6, 240, 15);
+}
+
+.answerBtn:hover, .btn_Answer:hover {
+  box-shadow: 1px 1px 25px 10px rgba(207, 90, 61, 0.4);
+  background-position: 0;
+  color: white;
+  
+}
+.nextBtn{
+  transition: width 2s, height 2s, transform 2s;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  align-self: center;
+}
+
+.nextBtn:hover {
+  transform: rotate(360deg);
+  border: solid 1px #F58A27;
+  background-image: linear-gradient(45deg, #F58A27 50%, transparent 50%);
+  background-position: 0;
+  color: white;
+}
+
+
+#btnAnswer:hover:before {
+  left: 100%;
+}
+

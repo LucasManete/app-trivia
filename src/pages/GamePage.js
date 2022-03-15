@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Questions from '../components/Questions';
+import './gamePage.css';
 
 class GamePage extends React.Component {
   render() {
@@ -13,13 +14,13 @@ class GamePage extends React.Component {
             src={ `${urlGravatar}` }
             alt="UserImage"
             data-testid="header-profile-picture"
+            className="user-Image"
           />
-          <h3 data-testid="header-player-name">{name}</h3>
-          <p data-testid="header-score">0</p>
+          <h3 data-testid="header-player-name" className="playerName">{name}</h3>
+          <p data-testid="header-score" className="playerScore">0</p>
         </header>
-        <section className="Questions-section">
+        <section className="questions-section">
           <Questions history={ history } />
-          <div id="timer" />
         </section>
       </div>
     );

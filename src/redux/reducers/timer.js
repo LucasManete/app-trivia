@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   stop: false,
   time: 3,
+  render: true,
 };
 
 function timeReducer(state = INITIAL_STATE, action) {
@@ -11,6 +12,9 @@ function timeReducer(state = INITIAL_STATE, action) {
   case 'SET_TIME':
     return { ...state,
       time: action.state };
+  case 'RENDER_TIME':
+    return { ...state,
+      render: action.state };
   default:
     return state;
   }
