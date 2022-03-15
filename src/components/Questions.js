@@ -33,7 +33,7 @@ class Questions extends React.Component {
               this.handleAnswerClick('wrong');
             } }
             className="answerBtn"
-            disabled="{ disabled }"
+            disabled={ disabled }
           >
             {answer}
           </button>);
@@ -176,6 +176,7 @@ handleNextClick(index) {
     return this.callDisabledDispatch(false);
   }
   history.push('/feedback');
+  return this.callDisabledDispatch(false);
 }
 
 renderNextBtn() {

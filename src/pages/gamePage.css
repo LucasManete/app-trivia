@@ -1,6 +1,6 @@
 .game-pag {
-  /* background-color: #b7dfa7; */
-  background-image: url('tijoloEscuro.jpg');
+  background-color: #282c34;;
+  /* background-image: url('tijoloEscuro.jpg'); */
   width: 100%vh;
   height: 100vh;
   display: flex;
@@ -32,17 +32,17 @@
   margin-top: 50px;
   padding: 10px;
   border-radius: 10px;
-  background-color: rgba(91, 230, 26, 0.418);
+  background-color: #EBE419;
 }
 
 .question-div {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   margin: 10px 0;
   font-size: 30px;
 }
 
 .answers-div {
-  background-color: rgb(240, 234, 234);
+  background-color: #F58A27;
   display: flex;
   flex-direction: column;
 }
@@ -57,21 +57,22 @@
   transition: background 700ms ease-in-out;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .answerBtn:disabled  {
   border: 3px solid red;
   background-image: none;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .btn_Answer:disabled  {
   border: 3px solid rgb(6, 240, 15);
   background-image: none;
-  background-color: rgb(6, 240, 15);
+  /* background-color: rgb(6, 240, 15); */
 }
 
-.answerBtn:hover, .btn_Answer:hover, .nextBtn:hover {
+.answerBtn:hover, .btn_Answer:hover {
   box-shadow: 1px 1px 25px 10px rgba(207, 90, 61, 0.4);
   background-position: 0;
   color: white;
@@ -84,6 +85,10 @@
 
 .nextBtn:hover {
   transform: rotate(360deg);
+  border: solid 1px #F58A27;
+  background-image: linear-gradient(45deg, #F58A27 50%, transparent 50%);
+  background-position: 0;
+  color: white;
 }
 
 
