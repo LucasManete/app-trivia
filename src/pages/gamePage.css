@@ -1,26 +1,24 @@
 .game-pag {
+  align-items: center;
   background-color: #282c34;;
-  /* background-image: url('tijoloEscuro.jpg'); */
-  width: 100%vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  width: 100%vh;
 }
 
 .game-header {
+  align-items: center;
+  background-color: #F58A27;
   display: flex;
   width: 100%;
-  background-color: #F58A27;
-  /* justify-content: space-between; */
-  align-items: center;
 }
 
 .user-Image {
   border-radius: 100%;
-  width: 40px;
   height: 40px;
   margin: 10px;
+  width: 40px;
 }
 
 .playerName, .playerScore {
@@ -110,3 +108,15 @@ border-radius: 100%;
   left: 100%;
 }
 
+@media screen and ( max-width : 768px ) {
+
+  .questions-section {
+    margin-top: 10px;
+    height: 85vh;
+    width: 40vh;
+  }
+  .timer-div {
+    height: 45px;
+    width: 45px;
+  }
+}
