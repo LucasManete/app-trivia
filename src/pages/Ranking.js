@@ -12,8 +12,8 @@ class Ranking extends React.Component {
   };
 
   render() {
-    const teste = getLocalStorage('ranking');
-    teste.sort((a, b) => {
+    const ranking = getLocalStorage('ranking');
+    ranking.sort((a, b) => {
       const NEGATIVE_ONE = -1;
       if (a.score > b.score) return NEGATIVE_ONE;
       if (a.score < b.score) return 1;
@@ -23,7 +23,7 @@ class Ranking extends React.Component {
       <div className="rankingPage">
         <h1 data-testid="ranking-title">Ranking</h1>
         {
-          teste.map((item, indice) => (
+          ranking.map((item, indice) => (
             <>
               <p data-testid={ `player-name-${indice}` }>{item.name}</p>
               <p data-testid={ `player-score-${indice}` }>{item.score}</p>
