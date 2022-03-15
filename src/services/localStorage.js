@@ -10,7 +10,8 @@ export const saveRankingStorage = (itemTosave) => {
   } else {
     const rankingToSave = [...savedRanking, itemTosave];
     rankingToSave.sort((a, b) => {
-      if (a.score > b.score) return -1;
+      const NEGATIVE_ONE = -1;
+      if (a.score > b.score) return NEGATIVE_ONE;
       if (a.score < b.score) return 1;
       return 0;
     });
