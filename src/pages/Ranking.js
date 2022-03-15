@@ -45,6 +45,7 @@ class Ranking extends React.Component {
     );
   }
 }
+
 const mapDispatchToProps = (dispatch) => ({
   resetScoreAction: (score) => dispatch(resetScore(score)),
 });
