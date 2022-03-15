@@ -5,6 +5,7 @@ import './questions.css';
 import Interval from './Interval';
 import { stopTimer, answerDisabled, nextBtn, countScore } from '../redux/actions';
 import { checkScore } from '../services/helpers';
+import { saveRankingStorage } from '../services/localStorage';
 
 class Questions extends React.Component {
   state = {
@@ -175,6 +176,8 @@ handleNextClick(index) {
     });
     return this.callDisabledDispatch(false);
   }
+  const { score, name, urlGravatar } = this.props;
+  saveRankingStorage({ name, score, picture: urlGravatar });
   history.push('/feedback');
   return this.callDisabledDispatch(false);
 }
@@ -202,7 +205,6 @@ render() {
         restartTimeFunction={ this.restartTimer }
       />
         : null}
-
       {loading ? (<span>Caregando...</span>) : this.questionToRender(index) }
       {next && this.renderNextBtn()}
     </div>
