@@ -1,3 +1,4 @@
+import sanitizeHTML from 'sanitize-html';
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -114,15 +115,28 @@ questionToRender() {
   try {
     const { results } = questions;
     const quest = results[index];
-    const { type } = quest;
-
+    const { type, category, question } = quest;
+    console.log(category, question);
+    const clean = sanitizeHTML(question);
+    const secondClean = sanitizeHTML(category);
     return (
       <>
 
-        <div className="question-div">
-          <span data-testid="question-category">{quest.category}</span>
-          <span data-testid="question-text">{quest.question}</span>
-        </div>
+        <p
+          data-testid="question-category"
+          dangerouslySetInnerHTML={ { __html: secondClean } }
+        >
+          {secondClean.category}
+
+        </p>
+        <p
+          data-testid="question-text"
+          dangerouslySetInnerHTML={ { __html: clean } }
+        >
+          {clean.question}
+
+        </p>
+
         <div className="answers-div" data-testid="answer-options">
           {type === 'multiple'
             ? this.getMultipleAnswers(quest)
