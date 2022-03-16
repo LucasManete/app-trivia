@@ -61,7 +61,7 @@ class Questions extends React.Component {
     // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
     const maxRandom = 0.5;
     const answers = [...quest.incorrect_answers, quest.correct_answer]
-      .sort(() => Math.random() - maxRandom);
+      .sort();
     const incorrects = quest.incorrect_answers;
     return answers.map((answer) => {
       if (answer === quest.correct_answer) {
