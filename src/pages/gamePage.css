@@ -1,108 +1,113 @@
 .game-pag {
-  background-color: #282c34;;
-  /* background-image: url('tijoloEscuro.jpg'); */
-  width: 100%vh;
-  height: 100vh;
+  align-items: center;
+  background-color: #282c34;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
+
+  /* background-image: url('tijoloEscuro.jpg'); */
+  width: 100%vh;
 }
 
 .game-header {
-  display: flex;
-  width: 100%;
-  background-color: #F58A27;
+
   /* justify-content: space-between; */
   align-items: center;
+  background-color: #f58a27;
+  display: flex;
+  width: 100%;
 }
 
 .user-Image {
   border-radius: 100%;
-  width: 40px;
   height: 40px;
   margin: 10px;
+  width: 40px;
 }
 
 .playerName, .playerScore {
   margin: 10px;
 }
 
-.questions-section{
-  width: 500px;
-  margin-top: 50px;
-  padding: 10px;
+.questions-section {
+  background-color: #ebe419;
   border-radius: 10px;
-  background-color: #EBE419;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
+  padding: 10px;
+  width: 500px;
 }
+
 .timer-div {
-background-color: white;
-width: 80px;
-height: 80px;
-font-size: 30px;
-align-self: center;
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 100%;
-}
-.question-div {
-  margin: 10px 0;
+  align-items: center;
+  align-self: center;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
   font-size: 30px;
+  height: 80px;
+  justify-content: center;
+  width: 80px;
+}
+
+.question-div {
+  font-size: 30px;
+  margin: 10px 0;
 }
 
 .answers-div {
-  background-color: #F58A27;
+  background-color: #f58a27;
   display: flex;
   flex-direction: column;
 }
 
 .btn_Answer, .answerBtn, .nextBtn {
-  height: 50px;
-  margin: 10px;
-  color:black;
   background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
   background-position: 90%;
   background-size: 500%;
-  transition: background 700ms ease-in-out;
-  font-weight: bold;
-  cursor: pointer;
   border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+  height: 50px;
+  margin: 10px;
+  transition: background 700ms ease-in-out;
 }
 
-.answerBtn:disabled  {
-  border: 3px solid red;
-  background-image: none;
+.answerBtn:disabled {
   background-color: red;
+  background-image: none;
+  border: 3px solid red;
 }
 
-.btn_Answer:disabled  {
-  border: 3px solid rgb(6, 240, 15);
-  background-image: none;
+.btn_Answer:disabled {
   background-color: rgb(6, 240, 15);
+  background-image: none;
+  border: 3px solid rgb(6, 240, 15);
 }
 
 .answerBtn:hover, .btn_Answer:hover {
-  box-shadow: 1px 1px 25px 10px rgba(207, 90, 61, 0.4);
   background-position: 0;
+  box-shadow: 1px 1px 25px 10px rgba(207, 90, 61, 0.4);
   color: white;
-  
+
 }
-.nextBtn{
-  transition: width 2s, height 2s, transform 2s;
-  border-radius: 10px;
-  width: 50px;
-  height: 50px;
+
+.nextBtn {
   align-self: center;
+  border-radius: 10px;
+  height: 50px;
+  transition: width 2s , height 2s , transform 2s;
+  width: 50px;
 }
 
 .nextBtn:hover {
-  transform: rotate(360deg);
-  border: solid 1px #F58A27;
-  background-image: linear-gradient(45deg, #F58A27 50%, transparent 50%);
+  background-image: linear-gradient(45deg, #f58a27 50%, transparent 50%);
   background-position: 0;
+  border: solid 1px #f58a27;
   color: white;
+  transform: rotate(360deg);
 }
 
 
