@@ -15,7 +15,6 @@ export const checkScore = (informations) => {
   const timerStorage = getLocalStorage('timer');
   const { results } = questions;
   const { difficulty } = results[index];
-  console.log(score);
   if (difficulty === 'easy') {
     const totalScore = score + POINTS + (timerStorage * EASY);
     // saveRankingStorage({ name, score: totalScore, picture: urlGravatar });
