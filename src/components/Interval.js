@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { answerDisabled, nextBtn, setTime, stopTimer } from '../redux/actions';
 import { saveLocalStorage } from '../services/localStorage';
 import sound from '../assets/bip.mp3';
+import 'react-circular-progressbar/dist/styles.css';
+import '../pages/gamePage.css';
 
 class Interval extends React.Component {
   state = {
@@ -63,7 +66,23 @@ class Interval extends React.Component {
     const { stop, restartTimeFunction } = this.props;
     return (
       <>
-        {time}
+        <span
+          className="timer"
+        >
+          <CircularProgressbar
+            value={ time }
+            maxValue={ 30 }
+            text={ String(time) }
+            background
+            styles={ buildStyles({
+              backgroundColor: 'white',
+              pathColor: '#7816DE',
+              textColor: 'black',
+              trailColor: '#F58A27',
+              textSize: '50px',
+            }) }
+          />
+        </span>
         {stop === true ? clearInterval(interval) : null}
         {time === 0 ? restartTimeFunction(false) : null}
       </>
