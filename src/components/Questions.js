@@ -199,14 +199,18 @@ handleNextClick(index) {
 renderNextBtn() {
   const { index } = this.state;
   return (
-    <button
-      type="button"
-      data-testid="btn-next"
-      className="nextBtn"
-      onClick={ () => { this.handleNextClick(index); } }
-    >
-      Next
-    </button>);
+    <>
+      <p>Respostas desabilitadas!</p>
+      <button
+        type="button"
+        data-testid="btn-next"
+        className="nextBtn"
+        onClick={ () => { this.handleNextClick(index); } }
+      >
+        Next
+      </button>
+    </>
+  );
 }
 
 render() {
