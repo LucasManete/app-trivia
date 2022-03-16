@@ -1,0 +1,66 @@
+.rankingPage {
+  align-items: center;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%vh;
+}
+
+.ranking {
+  background-color: #f58a27;
+  margin: 0;
+  width: 100%;
+  color: white;
+  padding: 20px;
+}
+
+.infoPlayer {
+  align-content: center;
+  background-color: #feed00;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 80px;
+  width: 50px;
+
+}
+
+.nameRanking {
+  align-self: center;
+  color: black;
+  font-size: 20px;
+}
+
+.scoreRanking {
+  align-self: center;
+  color: #7816DE;
+  font-size: 20px;
+}
+
+.rankingButton {
+  align-self: center;
+  font-weight: bold;
+  background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
+  background-position: 90%;
+  background-size: 300%;
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  height: 50px;
+  margin: 10px;
+  transition: width 2s , height 2s , transform 2s , background 700ms ease-in-out;
+  width: 100px;
+}
+
+.rankingButton:hover {
+  background-image: linear-gradient(45deg, #f58a27 50%, transparent 50%);
+  background-position: 0;
+  border: solid 1px #f58a27;
+  color: white;
+  transform: rotate(360deg);
+}
