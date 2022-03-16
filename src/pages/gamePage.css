@@ -1,15 +1,19 @@
 .game-pag {
   align-items: center;
-  background-color: #282c34;;
+  background-color: #282c34;
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  /* background-image: url('tijoloEscuro.jpg'); */
   width: 100%vh;
 }
 
 .game-header {
+
+  /* justify-content: space-between; */
   align-items: center;
-  background-color: #F58A27;
+  background-color: #f58a27;
   display: flex;
   width: 100%;
 }
@@ -25,11 +29,8 @@
   margin: 10px;
 }
 
-.questions-section{
-  width: 500px;
-  height: 80vh;
-  margin-top: 50px;
-  padding: 10px;
+.questions-section {
+  background-color: #ebe419;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -50,9 +51,6 @@
   width: 80px;
 }
 
-p {
-   margin: 3px;
-}
 .question-div {
   font-size: 30px;
   margin: 10px 0;
@@ -62,6 +60,7 @@ p {
   background-color: #f58a27;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .btn_Answer, .answerBtn, .nextBtn {
@@ -126,11 +125,12 @@ p {
   }
 }
 
+
 @media screen and ( max-width : 768px ) {
 
   .questions-section {
     margin-top: 10px;
-    height: 85vh;
+    height: 83vh;
     width: 40vh;
   }
   .timer-div {

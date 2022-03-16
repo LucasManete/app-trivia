@@ -6,7 +6,7 @@ import './gamePage.css';
 
 class GamePage extends React.Component {
   render() {
-    const { name, urlGravatar, history } = this.props;
+    const { name, urlGravatar, history, score } = this.props;
     return (
       <div className="game-pag">
         <header className="game-header">
@@ -17,7 +17,7 @@ class GamePage extends React.Component {
             className="user-Image"
           />
           <h3 data-testid="header-player-name" className="playerName">{name}</h3>
-          <p data-testid="header-score" className="playerScore">0</p>
+          <p data-testid="header-score" className="playerScore">{score}</p>
         </header>
         <section className="questions-section">
           <Questions history={ history } />
@@ -30,11 +30,12 @@ class GamePage extends React.Component {
 const mapStateToProps = (state) => ({
   name: state.player.name,
   urlGravatar: state.player.gravatarEmail,
-  // score: state.player.score,
+  score: state.player.score,
 });
 GamePage.propTypes = {
   name: PropTypes.string.isRequired,
   urlGravatar: PropTypes.string.isRequired,
   history: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  score: PropTypes.number.isRequired,
 };
 export default connect(mapStateToProps)(GamePage);

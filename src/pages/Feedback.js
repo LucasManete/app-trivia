@@ -52,13 +52,21 @@ class Feedback extends React.Component {
             <button
               type="submit"
               data-testid="btn-play-again"
+              className="feedbackBtn"
               onClick={ this.resetScoreFeedback }
             >
               Play Again
             </button>
           </Link>
           <Link to="/ranking">
-            <button type="submit" data-testid="btn-ranking">Ranking</button>
+            <button
+              type="submit"
+              data-testid="btn-ranking"
+              className="feedbackBtn"
+            >
+              Ranking
+
+            </button>
           </Link>
         </section>
       </div>
