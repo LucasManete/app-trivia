@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { answerDisabled, nextBtn, setTime, stopTimer } from '../redux/actions';
 import { saveLocalStorage } from '../services/localStorage';
+import sound from '../assets/bip.mp3';
 
 class Interval extends React.Component {
   state = {
@@ -10,29 +11,34 @@ class Interval extends React.Component {
   }
 
   componentDidMount() {
+    const audio = new Audio(sound);
+    audio.play();
     const { stopTimerAction, setNext } = this.props;
-    const interval = this.handleTime();
+    const interval = this.handleTime(audio);
     this.setState({
       interval,
+      audio,
     });
     stopTimerAction(false);
     setNext(false);
   }
 
   componentDidUpdate() {
-    const { time } = this.state;
+    const { time, audio } = this.state;
     const { setDisabled, setNext, setTimer } = this.props;
     saveLocalStorage('timer', time);
     setTimer(time);
     if (time === 0) {
+      audio.pause();
       setDisabled(true);
       setNext(true);
     }
   }
 
   componentWillUnmount() {
-    const { interval } = this.state;
+    const { interval, audio } = this.state;
     clearInterval(interval);
+    audio.pause();
   }
 
   handleTime = () => {
