@@ -43,7 +43,7 @@ p {
 .feedback-text {
 
 }
-button {
+.feedbackBtn {
   transition: width 2s, height 2s, transform 2s, background 700ms ease-in-out;
   border-radius: 10px;
   width: 65px;
@@ -59,7 +59,7 @@ button {
   border-radius: 10px;
 }
 
-button:hover {
+.feedbackBtn:hover {
   transform: rotate(360deg);
   border: solid 1px #F58A27;
   background-image: linear-gradient(45deg, #F58A27 50%, transparent 50%);
