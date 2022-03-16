@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { answerDisabled, nextBtn, setTime, stopTimer } from '../redux/actions';
 import { saveLocalStorage } from '../services/localStorage';
+import sound from '../assets/bip.mp3';
+import 'react-circular-progressbar/dist/styles.css';
+import '../pages/gamePage.css';
 
 class Interval extends React.Component {
   state = {
@@ -10,29 +14,34 @@ class Interval extends React.Component {
   }
 
   componentDidMount() {
+    const audio = new Audio(sound);
+    audio.play();
     const { stopTimerAction, setNext } = this.props;
-    const interval = this.handleTime();
+    const interval = this.handleTime(audio);
     this.setState({
       interval,
+      audio,
     });
     stopTimerAction(false);
     setNext(false);
   }
 
   componentDidUpdate() {
-    const { time } = this.state;
+    const { time, audio } = this.state;
     const { setDisabled, setNext, setTimer } = this.props;
     saveLocalStorage('timer', time);
     setTimer(time);
     if (time === 0) {
+      audio.pause();
       setDisabled(true);
       setNext(true);
     }
   }
 
   componentWillUnmount() {
-    const { interval } = this.state;
+    const { interval, audio } = this.state;
     clearInterval(interval);
+    audio.pause();
   }
 
   handleTime = () => {
@@ -57,7 +66,23 @@ class Interval extends React.Component {
     const { stop, restartTimeFunction } = this.props;
     return (
       <>
-        {time}
+        <span
+          className="timer"
+        >
+          <CircularProgressbar
+            value={ time }
+            maxValue={ 30 }
+            text={ String(time) }
+            background
+            styles={ buildStyles({
+              backgroundColor: 'white',
+              pathColor: '#7816DE',
+              textColor: 'black',
+              trailColor: '#F58A27',
+              textSize: '50px',
+            }) }
+          />
+        </span>
         {stop === true ? clearInterval(interval) : null}
         {time === 0 ? restartTimeFunction(false) : null}
       </>
