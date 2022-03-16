@@ -9,15 +9,15 @@
 
 .ranking {
   background-color: #f58a27;
-  border: 3px solid black;
-  border-radius: 10px;
+  margin: 0;
+  width: 100%;
   color: white;
   padding: 20px;
 }
 
 .infoPlayer {
   align-content: center;
-  background-color: #f58a27;
+  background-color: #feed00;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -31,14 +31,14 @@
 
 .nameRanking {
   align-self: center;
-  color: white;
-  font-size: 30px;
+  color: black;
+  font-size: 20px;
 }
 
 .scoreRanking {
   align-self: center;
-  color: white;
-  font-size: 30px;
+  color: #7816DE;
+  font-size: 20px;
 }
 
 .rankingButton {
