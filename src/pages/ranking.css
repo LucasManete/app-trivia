@@ -1,0 +1,38 @@
+.rankingPage {
+  align-items: center;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  /* background-image: url('tijoloEscuro.jpg'); */
+  width: 100%;
+}
+
+.ranking {
+  background-color: #f58a27;
+  border: 3px solid black;
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+}
+
+.infoPlayer {
+  align-content: center;
+  background-color: #f58a27;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 80px;
+  width: 50px;
+
+}
+
+.nameRanking {
+  color: white;
+  font-size: 20px;
+}
+

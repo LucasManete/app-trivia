@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLocalStorage } from '../services/localStorage';
 import { resetScore } from '../redux/actions';
+import './ranking.css';
 
 class Ranking extends React.Component {
   resetScoreFeedback = () => {
@@ -21,21 +22,34 @@ class Ranking extends React.Component {
     });
     return (
       <div className="rankingPage">
-        <h1 data-testid="ranking-title">Ranking</h1>
-        {
-          ranking.map((item, indice) => (
-            <>
-              <p data-testid={ `player-name-${indice}` }>{item.name}</p>
-              <p data-testid={ `player-score-${indice}` }>{item.score}</p>
-              <img src={ item.picture } alt="Foto" />
-            </>
-          ))
-        }
+        <h1 data-testid="ranking-title" className="ranking">Ranking</h1>
+        <div>
+          {
+            ranking.map((item, indice) => (
+              <div key="item.name" className="infoPlayer">
+                <p
+                  className="nameRanking"
+                  data-testid={ `player-name-${indice}` }
+                >
+                  {item.name}
+                </p>
+                <p
+                  className="scoreRanking"
+                  data-testid={ `player-score-${indice}` }
+                >
+                  {item.score}
+                </p>
+                <img className="imgRanking" src={ item.picture } alt="Foto" />
+              </div>
+            ))
+          }
+        </div>
         <Link to="/">
           <button
             type="submit"
             data-testid="btn-go-home"
             onClick={ this.resetScoreFeedback }
+            className="rankingButton"
           >
             Play Again
 
