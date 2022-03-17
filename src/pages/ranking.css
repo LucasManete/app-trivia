@@ -9,41 +9,57 @@
 
 .ranking {
   background-color: #f58a27;
+  color: black;
   margin: 0;
-  width: 100%;
-  color: white;
   padding: 20px;
+  width: 100%;
 }
 
 .infoPlayer {
   align-content: center;
   background-color: #feed00;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 50px;
   justify-content: center;
-  margin-top: 20px;
-  padding: 80px;
-  width: 50px;
+}
 
+.list {
+  background-color: #f58a27;
+  border: 3px solid #e85d04;
+  display: flex;
+  flex-direction: row;
+  margin-top: 80px;
+  padding: 30px;
 }
 
 .nameRanking {
   align-self: center;
   color: black;
   font-size: 20px;
+  width: 300px;
 }
 
 .scoreRanking {
   align-self: center;
-  color: #7816DE;
+  color: #7816de;
   font-size: 20px;
+  width: 300px;
+}
+
+.imgRanking {
+  align-self: center;
+  margin: 10px;
+  margin-left: 100px;
+}
+
+.infoIndividual {
+  border: 2px solid #ffc300;
+  display: flex;
+  flex-direction: row;
 }
 
 .rankingButton {
   align-self: center;
-  font-weight: bold;
   background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
   background-position: 90%;
   background-size: 300%;
@@ -51,6 +67,7 @@
   color: black;
   cursor: pointer;
   font-size: 15px;
+  font-weight: bold;
   height: 50px;
   margin: 10px;
   transition: width 2s , height 2s , transform 2s , background 700ms ease-in-out;
@@ -63,4 +80,42 @@
   border: solid 1px #f58a27;
   color: white;
   transform: rotate(360deg);
+}
+
+.listRanking {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  width: 900px;
+}
+
+.name {
+  font-size: 30px;
+  text-align: center;
+  width: 300px;
+}
+
+.score {
+  font-size: 30px;
+  text-align: center;
+  width: 300px;
+}
+
+.avatar {
+  font-size: 30px;
+  text-align: center;
+  width: 300px;
+}
+
+.table {
+  max-height: 312px;
+  overflow-y: scroll;
+}
+
+@media screen and ( max-width : 568px ) and ( max-height : 320px ) {
+
+  .listRanking {
+    width: 400px;
+  }
 }

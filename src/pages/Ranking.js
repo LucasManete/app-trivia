@@ -24,25 +24,36 @@ class Ranking extends React.Component {
       <div className="rankingPage">
         <h1 data-testid="ranking-title" className="ranking">Ranking</h1>
         <div>
-          {
-            ranking.map((item, indice) => (
-              <div key="item.name" className="infoPlayer">
-                <p
-                  className="nameRanking"
-                  data-testid={ `player-name-${indice}` }
-                >
-                  {item.name}
-                </p>
-                <p
-                  className="scoreRanking"
-                  data-testid={ `player-score-${indice}` }
-                >
-                  {item.score}
-                </p>
-                <img className="imgRanking" src={ item.picture } alt="Foto" />
-              </div>
-            ))
-          }
+          <table className="listRanking">
+            <tr className="list">
+              <th className="name">Nome</th>
+              <th className="score">Score</th>
+              <th className="avatar">Avatar</th>
+            </tr>
+            <div className="table">
+              {
+                ranking.map((item, indice) => (
+                  <div key="item.name" className="infoPlayer">
+                    <tr className="infoIndividual">
+                      <th
+                        className="nameRanking"
+                        data-testid={ `player-name-${indice}` }
+                      >
+                        {item.name}
+                      </th>
+                      <th
+                        className="scoreRanking"
+                        data-testid={ `player-score-${indice}` }
+                      >
+                        {item.score}
+                      </th>
+                      <img className="imgRanking" src={ item.picture } alt="Foto" />
+                    </tr>
+                  </div>
+                ))
+              }
+            </div>
+          </table>
         </div>
         <Link to="/">
           <button
