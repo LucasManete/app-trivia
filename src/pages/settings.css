@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100%vh;
+  width: 100vh;
 }
 
 .settings {
   background-color: #f58a27;
   color: black;
+  font-size: 40px;
   margin: 0;
   padding: 20px;
   width: 100%;
-  font-size: 40px;
 }

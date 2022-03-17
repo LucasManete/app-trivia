@@ -3,9 +3,9 @@
 }
 
 .App-logo {
+  animation: shake infinite 0.82s;
   height: 30vmin;
   pointer-events: none;
-  animation: shake infinite 0.82s;
 
 }
 
