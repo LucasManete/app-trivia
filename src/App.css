@@ -5,6 +5,8 @@
 .App-logo {
   height: 30vmin;
   pointer-events: none;
+  animation: shake infinite 0.82s;
+
 }
 
 .red-border {
@@ -15,12 +17,12 @@
   border: 1px solid green;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
+/* @media ( prefers-reduced-motion : no-preference ) {
 
   .App-logo {
     animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
-}
+} */
 
 .App-header {
   align-items: center;

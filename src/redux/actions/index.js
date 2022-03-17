@@ -38,7 +38,6 @@ export function fetchQuestionsApi(state) {
         gravatar: state.gravatar,
       }));
     } catch (error) {
-      console.log('lalala');
       const newToken = await fetchTokenApi();
       const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${newToken}`);
       const questions = await requestQuestions.json();

@@ -1,11 +1,11 @@
 import sanitizeHTML from 'sanitize-html';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import './questions.css';
 import Interval from './Interval';
-import { stopTimer, answerDisabled, nextBtn, countScore } from '../redux/actions';
-import { checkScore } from '../services/helpers';
+import { checkScore,
+  propTypes, mapStateToProps, mapDispatchToProps } from '../services/helpers';
+
 import { saveRankingStorage } from '../services/localStorage';
 
 class Questions extends React.Component {
@@ -30,6 +30,7 @@ class Questions extends React.Component {
         return (
           <button
             type="button"
+            key="1"
             data-testid="wrong-answer-0"
             onClick={ () => {
               this.handleAnswerClick('wrong');
@@ -58,8 +59,6 @@ class Questions extends React.Component {
 
   getMultipleAnswers(quest) {
     const { disabled } = this.props;
-    // referencia do sort: https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=Comecemos%20por%20implementar%20um%20algoritmo,pode%20ser%20positivo%20ou%20negativo.
-    const maxRandom = 0.5;
     const answers = [...quest.incorrect_answers, quest.correct_answer]
       .sort();
     const incorrects = quest.incorrect_answers;
@@ -116,33 +115,27 @@ questionToRender() {
     const { results } = questions;
     const quest = results[index];
     const { type, category, question } = quest;
-    console.log(category, question);
     const clean = sanitizeHTML(question);
     const secondClean = sanitizeHTML(category);
     return (
       <>
-
         <p
           data-testid="question-category"
           dangerouslySetInnerHTML={ { __html: secondClean } }
         >
           {secondClean.category}
-
         </p>
         <p
           data-testid="question-text"
           dangerouslySetInnerHTML={ { __html: clean } }
         >
           {clean.question}
-
         </p>
-
         <div className="answers-div" data-testid="answer-options">
           {type === 'multiple'
             ? this.getMultipleAnswers(quest)
             : this.getBollAnswers(quest)}
         </div>
-
       </>
     );
   } catch (error) {
@@ -231,34 +224,5 @@ render() {
   );
 }
 }
-Questions.propTypes = {
-  questions: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  history: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  setDisabled: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  stopTimerAction: PropTypes.func.isRequired,
-  setNext: PropTypes.func.isRequired,
-  next: PropTypes.bool.isRequired,
-  score: PropTypes.number.isRequired,
-  assertions: PropTypes.number.isRequired,
-  countScoreAction: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  urlGravatar: PropTypes.string.isRequired,
-};
-const mapStateToProps = (state) => ({
-  questions: state.player.questions,
-  disabled: state.answer.disabled,
-  next: state.answer.nextBtn,
-  score: state.player.score,
-  assertions: state.player.assertions,
-  name: state.player.name,
-  urlGravatar: state.player.gravatarEmail,
-});
-const mapDispatchToProps = (dispatch) => ({
-  stopTimerAction: (state) => dispatch(stopTimer(state)),
-  setDisabled: (state) => dispatch(answerDisabled(state)),
-  setNext: (state) => dispatch(nextBtn(state)),
-  countScoreAction: (state) => dispatch(countScore(state)),
-});
-
+Questions.propTypes = propTypes;
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
