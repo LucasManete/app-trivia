@@ -1,0 +1,17 @@
+.settingsPage {
+  align-items: center;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%vh;
+}
+
+.settings {
+  background-color: #f58a27;
+  color: black;
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+  font-size: 40px;
+}
