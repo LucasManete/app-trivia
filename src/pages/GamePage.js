@@ -11,7 +11,8 @@ class GamePage extends React.Component {
       <div className="game-pag">
         <header className="game-header">
           <img
-            src={ `${urlGravatar}` }
+            src={ urlGravatar }
+            d="identicon"
             alt="UserImage"
             data-testid="header-profile-picture"
             className="user-Image"
