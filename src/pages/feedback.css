@@ -1,14 +1,15 @@
 .feedbackPage {
   align-items: center;
-  background-color: #282c34;;
+  background-color: #282c34;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100%vh;
+  width: 100%;
 }
-.feedback-header{
+
+.feedback-header {
   align-items: center;
-  background-color: #F58A27;
+  background-color: #f58a27;
   display: flex;
   width: 100%;
 }
@@ -25,54 +26,53 @@
 }
 
 .feedback-section {
-  width: 500px;
-  margin-top: 50px;
-  padding: 10px;
+  background-color: #ebe419;
   border-radius: 10px;
-  background-color: #EBE419;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
+  padding: 10px;
+  width: 500px;
 }
+
 .feedbackNumber {
-  color:#7816DE;
+  color: #7816de;
   margin-top: 1px;
 }
-p {
-  font-weight: bolder;
-}
-.feedback-text {
 
+p {
+  font-weight: 1000;
 }
+
 .feedbackBtn {
-  transition: width 2s, height 2s, transform 2s, background 700ms ease-in-out;
-  border-radius: 10px;
-  width: 65px;
-  margin: 10px;
-  height: 50px;
   align-self: center;
-  color:black;
   background-image: linear-gradient(45deg, #feed00 50%, transparent 50%);
   background-position: 90%;
   background-size: 300%;
-  font-weight: bold;
-  cursor: pointer;
   border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  height: 50px;
+  margin: 10px;
+  transition: width 2s height 2s transform 2s background 700ms ease-in-out;
+  width: 65px;
 }
 
 .feedbackBtn:hover {
-  transform: rotate(360deg);
-  border: solid 1px #F58A27;
-  background-image: linear-gradient(45deg, #F58A27 50%, transparent 50%);
+  background-image: linear-gradient(45deg, #f58a27 50%, transparent 50%);
   background-position: 0;
+  border: solid 1px #f58a27;
   color: white;
+  transform: rotate(360deg);
 }
 
 @media screen and ( max-width : 768px ) {
 
-  .feedback-section  {
+  .feedback-section {
     height: 70vh;
     width: 40vh;
   }
+
   .timer-div {
     height: 45px;
     width: 45px;
