@@ -20,7 +20,7 @@
     "redux-thunk": "^2.3.0",
     "sanitize-html": "^2.7.0"
   },
-  "homepage": "https://LucasManete.github.io/app-receitas",
+  "homepage": "https://LucasManete.github.io/app-trivia",
   "scripts": {
     "cy": "cypress run",
     "cy:open": "cypress open",
